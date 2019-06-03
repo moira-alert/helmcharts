@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: moiraconfigmap
+data:
+  moira.yml: |
+    filter:
+      listen: {{ .Values.microservices.filter.listen }}
+      retention_config: {{ .Values.microservices.filter.retentionConfig }}
+      cache_capacity: {{ .Values.microservices.filter.cacheCapacity }}
+      max_parralel_matches: {{ .Values.microservices.filter.maxParallelMatches }}
+    checker:
+      metrics_ttl: {{ .Values.microservices.checker.metricsTTL }}
+      check_interval: {{ .Values.microservices.checker.checkInterval }}
+      lazy_triggers_check_interval: {{ .Values.microservices.checker.lazyTriggersCheckInterval }}
+      max_parallel_checks: {{ .Values.microservices.checker.maxParallelChecks }}
+      max_parallel_remote_checks: {{ .Values.microservices.checker.maxParallelRemoteChecks }}
+      nodata_check_interval: {{ .Values.microservices.checker.nodataCheckInterval }}
+      stop_checking_interval: {{ .Values.microservices.checker.stopCheckingInterval }}
+    notifier:
+      front_uri: {{ .Values.microservices.notifier.frontURI }}
+      datetime_format: {{ .Values.microservices.notifier.datetimeFormat }}
+      timezone: {{ .Values.microservices.notifier.timezone }}
+      sender_timeout: {{ .Values.microservices.notifier.senderTimeout }}
+      resending_timeout: {{ .Values.microservices.notifier.resendingTimeout }}
+      senders: {{ .Values.microservices.notifier.senders }}
+      moira_selfstate:
+        enabled: {{ .Values.microservices.notifier.moiraSelfState.enabled }}
+        remoteTriggersEnabled: {{ .Values.microservices.notifier.moiraSelfState.remoteTriggersEnabled }}
+        redis_disconect_delay: {{ .Values.microservices.notifier.moiraSelfState.redisDisconnectDelay }}
+        last_metric_received_delay: {{ .Values.microservices.notifier.moiraSelfState.lastMetricReceivedDelay }}
+        last_check_delay: {{ .Values.microservices.notifier.moiraSelfState.lastCheckDelay }}
+        last_remote_check_delay: {{ .Values.microservices.notifier.moiraSelfState.lastRemoteCheckDelay }}
+        notice_interval: {{ .Values.microservices.notifier.moiraSelfState.noticeInterval }}
+        contacts: {{ .Values.microservices.notifier.moiraSelfState.contacts }}
+    api:
+      listen: {{ .Values.microservices.api.listen }}
+      enable_cors: {{ .Values.microservices.api.enableCORS }}
+    web:
+      contacts: {{ .Values.microservices.web.contacts }}
+      support_email: {{ .Values.microservices.web.supportEmail }}
+    redis:
+      master_name: {{ .Values.datasources.redis.masterName }}
+      sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
+      host: {{ .Values.datasources.redis.host }}
+      port: {{ .Values.datasources.redis.port }}
+      dbid: {{ .Values.datasources.redis.db }}
+      connection_limit: {{ .Values.datasources.redis.connectionLimit }}
+    remote:
+      enabled: {{ .Values.datasources.remote.enabled }}
+      url: {{ .Values.datasources.remote.URL }}
+      timeout: {{ .Values.datasources.remote.timeOut }}
+      check_interval: {{ .Values.datasources.remote.checkInterval }}
+      user: {{ .Values.datasources.remote.user }}
+      password: {{ .Values.datasources.remote.password }}
+    graphite:
+      enabled: {{ .Values.monitoring.graphite.enabled }}
+      uri: {{ .Values.monitoring.graphite.URI }}
+      interval: {{ .Values.monitoring.graphite.interval }}
+      prefix: {{ .Values.monitoring.graphite.prefix }}
+      runtime_stats: {{ .Values.monitoring.graphite.runtimeStats }}
+    logger:
+      log_level: {{ .Values.monitoring.logger.logLevel }}
+      log_file: {{ .Values.monitoring.logger.logFile }}
+    pprof:
+      listen: {{ .Values.monitoring.pprof.listen }}
+
+  storage-schemas.conf: |
+    [default]
+    pattern = .*
+    retentions = 60s:1d

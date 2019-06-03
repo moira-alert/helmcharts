@@ -1,0 +1,161 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.filter.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.filter.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.filter.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.filter.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.filter.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.filter.name }}
+          image: {{ .Values.topology.filter.image }}
+          volumeMounts:
+            - mountPath: /etc/moira
+              name: filterconfig
+      volumes:
+        - name: filterconfig
+          configMap:
+            name: moiraconfigmap
+            items:
+              - key: moira.yml
+                path: filter.yml
+              - key: storage-schemas.conf
+                path: storage-schemas.conf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.checker.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.checker.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.checker.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.checker.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.checker.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.checker.name }}
+          image: {{ .Values.topology.checker.image }}
+          volumeMounts:
+            - mountPath: /etc/moira
+              name: checkerconfig
+      volumes:
+        - name: checkerconfig
+          configMap:
+            name: moiraconfigmap
+            items:
+              - key: moira.yml
+                path: checker.yml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.notifier.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.notifier.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.notifier.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.notifier.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.notifier.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.notifier.name }}
+          image: {{ .Values.topology.notifier.image }}
+          volumeMounts:
+            - mountPath: /etc/moira
+              name: notifierconfig
+      volumes:
+        - name: notifierconfig
+          configMap:
+            name: moiraconfigmap
+            items:
+              - key: moira.yml
+                path: notifier.yml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.api.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.api.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.api.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.api.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.api.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.api.name }}
+          image: {{ .Values.topology.api.image }}
+          volumeMounts:
+            - mountPath: /etc/moira
+              name: apiconfig
+      volumes:
+        - name: apiconfig
+          configMap:
+            name: moiraconfigmap
+            items:
+              - key: moira.yml
+                path: api.yml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.web.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.web.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.web.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.web.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.web.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.web.name }}
+          image: {{ .Values.topology.web.image }}

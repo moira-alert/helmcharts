@@ -1,0 +1,182 @@
+# [common] Ingress configuration parameters
+ingress:
+  enabled: true
+  host: "moira"
+
+# Moira topology parameters
+topology:
+  filter:
+    name: "moira-filter"
+    image: "moira/filter:latest"
+    replicas: 3
+  checker:
+    name: "moira-checker"
+    image: "moira/checker:latest"
+    replicas: 3
+  notifier:
+    name: "moira-notifier"
+    image: "moira/notifier:latest"
+    replicas: 3
+  api:
+    name: "moira-api"
+    image: "moira/api:latest"
+    replicas: 3
+  web:
+    name: "moira-web"
+    image: "moira/web2:latest"
+    replicas: 3
+
+# Moira configuration parameters
+# See more details at: https://moira.readthedocs.io/en/latest/installation/configuration.html
+
+# Microservices configuration
+microservices:
+  filter:
+    # Metrics listener uri
+    listen: ":2003"
+    # Retentions config file path. Simply use your original storage-schemas.conf or create new if you're using Moira without existing Graphite installation
+    retentionConfig: "/etc/moira/storage-schemas.conf"
+    # Number of metrics to cache before checking them
+    # Note: As this value increases, Redis CPU usage decreases
+    # Normally, this value must be an order of magnitude less than graphite.prefix.filter.recevied.matching.count | nonNegativeDerivative() | scaleToSeconds(1)
+    # For example: with 100 matching metrics, set cache_capacity to 10. With 1000 matching metrics, increase cache_capacity up to 100
+    cacheCapacity: 10
+    # Defines number of threads to match incoming graphite-metrics
+    # Equals to the number of processor cores found on Moira host by default or when variable is defined as 0
+    maxParallelMatches: 0
+  checker:
+    # Period for every trigger to perform forced check on
+    nodataCheckInterval: "60s"
+    # Min period to perform triggers re-check. Note: Reducing of this value leads to increasing of CPU and memory usage values
+    checkInterval: "10s"
+    # In Moira 2.4 we add a new entity - Lazy Trigger. This is a regular trigger but without any subscription for it
+    # By default Moira treats any trigger equally regardless on its subscriptions number
+    # You can change this behaviour using option below. This can reduce CPU usage on your server
+    # Lazy triggers checker works if lazy_triggers_check_interval > check_interval. We recommend setting it to 10m
+    lazyTriggersCheckInterval: "10m"
+    # Time interval to store metrics. Note: Increasing of this value leads to increasing of Redis memory consumption value
+    metricsTTL: "3h"
+    # Period for every trigger to cancel forced check (greater than 'NoDataCheckInterval') if no metrics were received
+    stopCheckingInterval: "30s"
+    # Equals to the number of processor cores found on Moira host by default or when variable is defined as 0
+    maxParallelChecks: 0
+    # Is related with remote triggers (see remote section)
+    # Equals to the number of processor cores found on Moira host by default or when variable is defined as 0
+    maxParallelRemoteChecks: 0
+  notifier:
+    # Soft timeout to start retrying to send notification after single failed attempt
+    senderTimeout: "10s"
+    # Hard timeout to stop retrying to send notification after multiple failed attempts
+    resendingTimeout: "1:00"
+    # Web-UI uri prefix for trigger links in notifications. For example: with 'http://localhost' every notification will contain link like 'http://localhost/trigger/triggerId'
+    frontURI: "http://localhost"
+    # Timezone to use to convert ticks. Default is UTC. See https://golang.org/pkg/time/#LoadLocation for more details
+    timezone: "UTC"
+    # Format for email sender. Default is "15:04 02.01.2006". See https://golang.org/pkg/time/#Time.Format for more details about golang time formatting
+    datetimeFormat: "15:04 02.01.2006"
+    # List of senders, every element has "type" field (one of ["pushover", "slack", "mail", "telegram", "twilio sms", "twilio voice", "script", "webhook"])
+    # Every type of sender has additional config fields
+    # - type: slack
+    #   api_token: "slackApiToken"
+    #   use_emoji: true
+    # - type: telegram
+    #   api_token: "telegramApiToken"
+    senders: []
+    # Self state monitor configuration section. Note: No inner subscriptions is required. Moira will use its notification mechanism to send messages
+    moiraSelfState:
+      # If true, self state monitor will be enabled
+      enabled: false
+      # If true, Moira selfstate will check remote triggers checker works properly and notify admin if remote checker fails
+      remoteTriggersEnabled: false
+      # Max Redis disconnect delay to send alert when reached
+      redisDisconnectDelay: "60s"
+      # Max Filter metrics receive delay to send alert when reached
+      lastMetricReceivedDelay: "120s"
+      # Max Checker checks perform delay to send alert when reached
+      lastCheckDelay: "120s"
+      # Max Remote triggers Checker checks perform delay to send alert when reached
+      lastRemoteCheckDelay: "300s"
+      # Self state monitor alerting interval
+      noticeInterval: "300s"
+      # Contact list for Self state monitor alerts, use this like delivery channels in web-ui
+      # - type: slack
+      #   value: #moira-selfstate
+      # - type: telegram
+      #   value: Moira Selfstate
+      contacts: []
+  api:
+    # API local network address. Default is ':8081' so api will be available at http://moira.company.com:8081/api
+    listen: ":8081"
+    # If true, CORS for cross-domain requests will be enabled. This option can be used only for debugging purposes.
+    enableCORS: false
+  web:
+    # List of contact types that are allowed to create using Web UI
+    # - type: slack
+    #   label: Slack
+    # - type: telegram
+    #   label: Telegram
+    #   help: required to grant @MoiraBot admin privileges
+    contacts: []
+    # Moira administrator email address
+    supportEmail: ""
+
+# Datasources configuration
+datasources:
+  # Redis datasource configuration
+  # Use fields MasterName and SentinelAddrs to enable Redis Sentinel support,
+  # use Host and Port fields otherwise.
+  redis:
+    # Sentinel master name
+    masterName: ""
+    # Sentinel address list, format: {host1_name:port};{ip:port}
+    sentinelAddrs: ""
+    # Node ip-address or host name
+    host: ""
+    # Node port
+    port: ""
+    # Database id
+    db: 0
+    # Redis client connection pool size
+    connectionLimit: 512
+  # Remote datasource configuration
+  remote:
+    # If true, remote datasource will be enabled
+    enabled: false
+    # URL of Graphite HTTP API: graphite-web, carbonapi, etc.
+    # Specify full URL including '/render'
+    URL: "https://localhost/carbonapi/render"
+    # Auth username (Basic-auth)
+    user: ""
+    # Auth password (Basic-auth)
+    password: ""
+    # Min period to perform triggers re-check
+    # Note: Reducing of this value leads to increasing of CPU and memory usage values and extra load on Graphite HTTP API
+    checkInterval: "60s"
+    # Max timeout for HTTP-request made to Graphite HTTP API
+    timeOut: "60s"
+
+# Monitoring configuration parameters
+monitoring:
+  # Graphite metrics sender
+  graphite:
+    # If true, graphite sender will be enabled
+    enabled: false
+    # If true, runtime stats will be captured and sent to graphite. Note: It takes to call stoptheworld() with configured
+    # "graphite.interval" to capture runtime stats (https://golang.org/src/runtime/mstats.go)
+    runtimeStats: false
+    # Graphite relay URI, format: ip:port
+    URI: "localhost:2003"
+    # Metrics prefix. Use 'prefix: {hostname}' to use hostname autoresolver.
+    prefix: "DevOps.Moira.{hostname}"
+    # Metrics sending interval
+    interval: "60s"
+  # Log sender
+  logger:
+    # Log level. Must be one of "debug", "error", "warn" or "info"
+    logLevel: "info"
+    # Log file path
+    logFile: "stdout"
+  # Profiling server
+  pprof:
+    # Profiling server local network address
+    listen: ""
