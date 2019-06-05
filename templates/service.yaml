@@ -14,7 +14,7 @@ spec:
   selector:
     app.kubernetes.io/name: {{ .Values.topology.filter.name }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-  type: LoadBalancer
+  type: ClusterIP
 ---
 apiVersion: v1
 kind: Service
