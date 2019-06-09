@@ -31,7 +31,7 @@ data:
     pprof:
       listen: {{ .Values.monitoring.pprof.listen }}
   storage-schemas.conf: |+
-    {{ .Values.microservices.filter.retentionConfig | indent 2 }}
+{{ .Values.microservices.filter.retentionConfig | indent 2 }}
 ---
 apiVersion: v1
 kind: ConfigMap
