@@ -30,8 +30,8 @@ data:
       log_file: {{ .Values.monitoring.logger.logFile }}
     pprof:
       listen: {{ .Values.monitoring.pprof.listen }}
-  storage-schemas.conf: |+
-{{ .Values.microservices.filter.retentionConfig | indent 2 }}
+  storage-schemas.conf:
+{{ .Values.microservices.filter.retentionConfig }}
 ---
 apiVersion: v1
 kind: ConfigMap
