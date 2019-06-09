@@ -73,7 +73,7 @@ Parameter | Description | Default value
 `microservices.notifier.frontURI` | Web-UI uri prefix for trigger links in notifications | `http://localhost`
 `microservices.notifier.timezone` | Timezone to use to convert ticks | `UTC`
 `microservices.notifier.datetimeFormat` | Format for email sender | `15:04 02.01.2006`
-`microservices.notifier.senders` | List of enabled senders | `[]`
+`microservices.notifier.senders` | Enabled senders | `{}`
 `microservices.notifier.moiraSelfState.enabled` | If true, self state monitor will be enabled | `False`
 `microservices.notifier.moiraSelfState.remoteTriggersEnabled` | If true, Moira selfstate will check remote triggers checker works properly | `False`
 `microservices.notifier.moiraSelfState.redisDisconnectDelay` | Max Redis disconnect delay | `60s`
@@ -81,7 +81,7 @@ Parameter | Description | Default value
 `microservices.notifier.moiraSelfState.lastCheckDelay` | Max Checker checks perform delay for local triggers | `120s`
 `microservices.notifier.moiraSelfState.lastRemoteCheckDelay` | Max Checker checks perform delay for remote triggers | `300s`
 `microservices.notifier.moiraSelfState.noticeInterval` | Self state monitor alerting interval | `300s`
-`microservices.notifier.moiraSelfState.contacts` | List of Moira administrator contacts | `[]`
+`microservices.notifier.moiraSelfState.contacts` | Moira administrator contacts | `{}`
 
 ### Moira API
 Parameter | Description | Default value
@@ -93,7 +93,7 @@ Parameter | Description | Default value
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `microservices.web.supportEmail` | Moira administrator email address | ``
-`microservices.web.contacts` | List of contact types that are allowed to create using Web UI | `[]`
+`microservices.web.contacts` | Contact types that are allowed to create by using Web UI | `{}`
 
 ## Datasources configuration parameters
 

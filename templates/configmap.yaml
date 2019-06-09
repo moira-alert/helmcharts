@@ -94,12 +94,12 @@ data:
       sender_timeout: {{ .Values.microservices.notifier.senderTimeout }}
       resending_timeout: {{ .Values.microservices.notifier.resendingTimeout }}
       senders:
-          {{- range $key, $value := .Values.microservices.notifier.senders }}
-            - name: {{ $key }}
-              {{- range $elem, $elemVal := $value }}
-              {{ $elem }}: {{ $elemVal }}
-              {{- end }}
-          {{- end}}
+      {{- range $key, $value := .Values.microservices.notifier.senders }}
+        - name: {{ $key }}
+          {{- range $elem, $elemVal := $value }}
+          {{ $elem }}: {{ $elemVal }}
+          {{- end }}
+      {{- end}}
       moira_selfstate:
         enabled: {{ .Values.microservices.notifier.moiraSelfState.enabled }}
         remoteTriggersEnabled: {{ .Values.microservices.notifier.moiraSelfState.remoteTriggersEnabled }}
@@ -109,12 +109,12 @@ data:
         last_remote_check_delay: {{ .Values.microservices.notifier.moiraSelfState.lastRemoteCheckDelay }}
         notice_interval: {{ .Values.microservices.notifier.moiraSelfState.noticeInterval }}
         contacts:
-          {{- range $key, $value := .Values.microservices.notifier.moiraSelfState.contacts }}
-            - name: {{ $key }}
-              {{- range $elem, $elemVal := $value }}
-              {{ $elem }}: {{ $elemVal }}
-              {{- end }}
-          {{- end}}
+        {{- range $key, $value := .Values.microservices.notifier.moiraSelfState.contacts }}
+          - name: {{ $key }}
+            {{- range $elem, $elemVal := $value }}
+            {{ $elem }}: {{ $elemVal }}
+            {{- end }}
+        {{- end}}
     redis:
       master_name: {{ .Values.datasources.redis.masterName }}
       sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
@@ -155,8 +155,14 @@ data:
       listen: {{ .Values.microservices.api.listen }}
       enable_cors: {{ .Values.microservices.api.enableCORS }}
     web:
-      contacts: {{ .Values.microservices.web.contacts }}
       support_email: {{ .Values.microservices.web.supportEmail }}
+      contacts:
+      {{- range $key, $value := .Values.microservices.web.contacts }}
+        - name: {{ $key }}
+          {{- range $elem, $elemVal := $value }}
+          {{ $elem }}: {{ $elemVal }}
+          {{- end }}
+      {{- end}}
     redis:
       master_name: {{ .Values.datasources.redis.masterName }}
       sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}

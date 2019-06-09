@@ -77,12 +77,14 @@ microservices:
     timezone: "UTC"
     # Format for email sender. Default is "15:04 02.01.2006". See https://golang.org/pkg/time/#Time.Format for more details about golang time formatting
     datetimeFormat: "15:04 02.01.2006"
-    # List of senders, every element has "type" field (one of ["pushover", "slack", "mail", "telegram", "twilio sms", "twilio voice", "script", "webhook"])
+    # Enabled senders, every element has "type" field (one of ["pushover", "slack", "mail", "telegram", "twilio sms", "twilio voice", "script", "webhook"])
     # Every type of sender has additional config fields
-    # - type: slack
+    # slack
+    #   type: slack
     #   api_token: "slackApiToken"
     #   use_emoji: true
-    # - type: telegram
+    # telegram:
+    #   type: telegram
     #   api_token: "telegramApiToken"
     senders: {}
     # Self state monitor configuration section. Note: No inner subscriptions is required. Moira will use its notification mechanism to send messages
@@ -101,10 +103,12 @@ microservices:
       lastRemoteCheckDelay: "300s"
       # Self state monitor alerting interval
       noticeInterval: "300s"
-      # Contact list for Self state monitor alerts, use this like delivery channels in web-ui
-      # - type: slack
+      # Moira administrator contacts, use this like delivery channels in web-ui
+      # slack:
+      #   type: slack
       #   value: #moira-selfstate
-      # - type: telegram
+      # telegram:
+      #   type: telegram
       #   value: Moira Selfstate
       contacts: {}
   api:
@@ -113,13 +117,15 @@ microservices:
     # If true, CORS for cross-domain requests will be enabled. This option can be used only for debugging purposes.
     enableCORS: false
   web:
-    # List of contact types that are allowed to create using Web UI
-    # - type: slack
+    # Contact types that are allowed to create by using Web UI
+    # slack:
+    #   type: slack
     #   label: Slack
-    # - type: telegram
+    # telegram:
+    #   type: slack
     #   label: Telegram
     #   help: required to grant @MoiraBot admin privileges
-    contacts: []
+    contacts: {}
     # Moira administrator email address
     supportEmail: ""
 
