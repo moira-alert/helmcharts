@@ -10,7 +10,6 @@ data:
   filter.yml: |
     filter:
       listen: {{ .Values.microservices.filter.listen }}
-      retention_config: {{ .Values.microservices.filter.retentionConfig }}
       cache_capacity: {{ .Values.microservices.filter.cacheCapacity }}
       max_parralel_matches: {{ .Values.microservices.filter.maxParallelMatches }}
     redis:
