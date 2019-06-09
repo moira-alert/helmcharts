@@ -23,13 +23,13 @@ spec:
           image: {{ .Values.topology.filter.image }}
           volumeMounts:
             - mountPath: /etc/moira
-              name: filterconfig
+              name: {{ .Values.topology.filter.name }}-volume
       volumes:
-        - name: filterconfig
+        - name: {{ .Values.topology.filter.name }}-volume
           configMap:
-            name: moiraconfigmap
+            name: {{ .Values.topology.filter.name }}-configmap
             items:
-              - key: moira.yml
+              - key: filter.yml
                 path: filter.yml
               - key: storage-schemas.conf
                 path: storage-schemas.conf
@@ -59,13 +59,13 @@ spec:
           image: {{ .Values.topology.checker.image }}
           volumeMounts:
             - mountPath: /etc/moira
-              name: checkerconfig
+              name: {{ .Values.topology.checker.name }}-volume
       volumes:
-        - name: checkerconfig
+        - name: {{ .Values.topology.checker.name }}-volume
           configMap:
-            name: moiraconfigmap
+            name: {{ .Values.topology.checker.name }}-configmap
             items:
-              - key: moira.yml
+              - key: checker.yml
                 path: checker.yml
 ---
 apiVersion: apps/v1
@@ -93,13 +93,13 @@ spec:
           image: {{ .Values.topology.notifier.image }}
           volumeMounts:
             - mountPath: /etc/moira
-              name: notifierconfig
+              name: {{ .Values.topology.notifier.name }}-volume
       volumes:
-        - name: notifierconfig
+        - name: {{ .Values.topology.notifier.name }}-volume
           configMap:
-            name: moiraconfigmap
+            name: {{ .Values.topology.notifier.name }}-configmap
             items:
-              - key: moira.yml
+              - key: notifier.yml
                 path: notifier.yml
 ---
 apiVersion: apps/v1
@@ -127,13 +127,13 @@ spec:
           image: {{ .Values.topology.api.image }}
           volumeMounts:
             - mountPath: /etc/moira
-              name: apiconfig
+              name: {{ .Values.topology.api.name }}-volume
       volumes:
-        - name: apiconfig
+        - name: {{ .Values.topology.api.name }}-volume
           configMap:
-            name: moiraconfigmap
+            name: {{ .Values.topology.api.name }}-configmap
             items:
-              - key: moira.yml
+              - key: api.yml
                 path: api.yml
 ---
 apiVersion: apps/v1

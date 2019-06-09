@@ -50,7 +50,7 @@ Parameter | Description | Default value
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `microservices.filter.listen` | Metrics listener uri | `:2003`
-`microservices.filter.retentionConfig` | Retentions config file path | `/etc/moira/storage-schemas.conf`
+`microservices.filter.retentionConfig` | Retentions config file content | `Default schema`
 `microservices.filter.cacheCapacity` | Number of metrics to cache before checking them | `10`
 `microservices.filter.maxParallelMatches` | Number of threads to match incoming graphite-metrics | `0`
 
@@ -115,7 +115,7 @@ Parameter | Description | Default value
 `datasources.remote.user` | Auth username (Basic-auth) | ``
 `datasources.remote.password` | Auth password (Basic-auth) | ``
 `datasources.remote.checkInterval` | Min period to perform triggers re-check | `60s`
-`datasources.remote.timeOut` | Max timeout for HTTP-request made to Graphite HTTP API | `60s`
+`datasources.remote.timeout` | Max timeout for HTTP-request made to Graphite HTTP API | `60s`
 
 ## Monitoring configuration parameters
 
