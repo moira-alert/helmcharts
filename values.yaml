@@ -84,7 +84,7 @@ microservices:
     #   use_emoji: true
     # - type: telegram
     #   api_token: "telegramApiToken"
-    senders: []
+    senders: {}
     # Self state monitor configuration section. Note: No inner subscriptions is required. Moira will use its notification mechanism to send messages
     moiraSelfState:
       # If true, self state monitor will be enabled
@@ -106,7 +106,7 @@ microservices:
       #   value: #moira-selfstate
       # - type: telegram
       #   value: Moira Selfstate
-      contacts: []
+      contacts: {}
   api:
     # API local network address. Default is ':8081' so api will be available at http://moira.company.com:8081/api
     listen: ":8081"
