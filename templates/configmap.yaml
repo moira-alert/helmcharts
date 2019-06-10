@@ -95,7 +95,7 @@ data:
       resending_timeout: {{ .Values.microservices.notifier.resendingTimeout }}
       senders:
       {{- range $key, $value := .Values.microservices.notifier.senders }}
-        - name: {{ $key }}
+        - sender: {{ $key }}
           {{- range $elem, $elemVal := $value }}
           {{ $elem }}: {{ $elemVal }}
           {{- end }}
@@ -110,7 +110,7 @@ data:
         notice_interval: {{ .Values.microservices.notifier.moiraSelfState.noticeInterval }}
         contacts:
         {{- range $key, $value := .Values.microservices.notifier.moiraSelfState.contacts }}
-          - name: {{ $key }}
+          - contact: {{ $key }}
             {{- range $elem, $elemVal := $value }}
             {{ $elem }}: {{ $elemVal }}
             {{- end }}
@@ -158,7 +158,7 @@ data:
       support_email: {{ .Values.microservices.web.supportEmail }}
       contacts:
       {{- range $key, $value := .Values.microservices.web.contacts }}
-        - name: {{ $key }}
+        - contact: {{ $key }}
           {{- range $elem, $elemVal := $value }}
           {{ $elem }}: {{ $elemVal }}
           {{- end }}
