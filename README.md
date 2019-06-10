@@ -86,7 +86,7 @@ Parameter | Description | Default value
 
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`ingress.enabled` | Ingress enabled | `True`
+`ingress.enabled` | Ingress enabled | `true`
 `ingress.host` | Ingress host | `moira`
 
 ## Microservices configuration parameters
@@ -119,8 +119,8 @@ Parameter | Description | Default value
 `microservices.notifier.timezone` | Timezone to use to convert ticks | `UTC`
 `microservices.notifier.datetimeFormat` | Format for email sender | `15:04 02.01.2006`
 `microservices.notifier.senders` | Enabled senders | `{}`
-`microservices.notifier.moiraSelfState.enabled` | If true, self state monitor will be enabled | `False`
-`microservices.notifier.moiraSelfState.remoteTriggersEnabled` | If true, Moira selfstate will check remote triggers checker works properly | `False`
+`microservices.notifier.moiraSelfState.enabled` | If true, self state monitor will be enabled | `false`
+`microservices.notifier.moiraSelfState.remoteTriggersEnabled` | If true, Moira selfstate will check remote triggers checker works properly | `false`
 `microservices.notifier.moiraSelfState.redisDisconnectDelay` | Max Redis disconnect delay | `60s`
 `microservices.notifier.moiraSelfState.lastMetricReceivedDelay` | Max Filter metrics receive delay | `120s`
 `microservices.notifier.moiraSelfState.lastCheckDelay` | Max Checker checks perform delay for local triggers | `120s`
@@ -132,7 +132,7 @@ Parameter | Description | Default value
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `microservices.api.listen` | API local network address | `:8081`
-`microservices.api.enableCORS` | If true, CORS for cross-domain requests will be enabled | `False`
+`microservices.api.enableCORS` | If true, CORS for cross-domain requests will be enabled | `false`
 
 ### Moira Web
 Parameter | Description | Default value
@@ -145,20 +145,20 @@ Parameter | Description | Default value
 ### Local (Redis)
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`datasources.redis.masterName` | Sentinel master name | ``
-`datasources.redis.sentinelAddrs` | Sentinel address list | ``
-`datasources.redis.host` | Node ip-address or host name | ``
-`datasources.redis.port` | Node port | ``
+`datasources.redis.masterName` | Sentinel master name | `""`
+`datasources.redis.sentinelAddrs` | Sentinel address list | `""`
+`datasources.redis.host` | Node ip-address or host name | `""`
+`datasources.redis.port` | Node port | `""`
 `datasources.redis.db` | Database id | `0`
 `datasources.redis.connectionLimit` | Redis client connection pool size | `512`
 
 ### Remote (Graphite)
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`datasources.remote.enabled` | If true, remote datasource will be enabled | `False`
+`datasources.remote.enabled` | If true, remote datasource will be enabled | `false`
 `datasources.remote.URL` | URL of Graphite HTTP API | `https://localhost/carbonapi/render`
-`datasources.remote.user` | Auth username (Basic-auth) | ``
-`datasources.remote.password` | Auth password (Basic-auth) | ``
+`datasources.remote.user` | Auth username (Basic-auth) | `""`
+`datasources.remote.password` | Auth password (Basic-auth) | `""`
 `datasources.remote.checkInterval` | Min period to perform triggers re-check | `60s`
 `datasources.remote.timeout` | Max timeout for HTTP-request made to Graphite HTTP API | `60s`
 
@@ -167,8 +167,8 @@ Parameter | Description | Default value
 ### Graphite metrics sender
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`monitoring.graphite.enabled` | If true, graphite sender will be enabled | `False`
-`monitoring.graphite.runtimeStats` | If true, runtime stats will be captured and sent to graphite | `False`
+`monitoring.graphite.enabled` | If true, graphite sender will be enabled | `false`
+`monitoring.graphite.runtimeStats` | If true, runtime stats will be captured and sent to graphite | `false`
 `monitoring.graphite.URI` | Graphite relay URI | `localhost:2003`
 `monitoring.graphite.prefix` | Metrics prefix | `DevOps.Moira.{hostname}`
 `monitoring.graphite.interval` | Metrics sending interval | `60s`
@@ -182,4 +182,4 @@ Parameter | Description | Default value
 ### Profiling server
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`monitoring.pprof.listen` | Profiling server local network address | ``
+`monitoring.pprof.listen` | Profiling server local network address | `""`
