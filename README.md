@@ -137,7 +137,7 @@ Parameter | Description | Default value
 ### Moira Web
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`microservices.web.supportEmail` | Moira administrator email address | ``
+`microservices.web.supportEmail` | Moira administrator email address | `""`
 `microservices.web.contacts` | Contact types that are allowed to create by using Web UI | `{}`
 
 ## Datasources configuration parameters
