@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.topology.api.name }}-configmap
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.api.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+data:
+  api.yml: |
+    api:
+      listen: {{ .Values.microservices.api.listen }}
+      enable_cors: {{ .Values.microservices.api.enableCORS }}
+    web:
+      support_email: {{ .Values.microservices.web.supportEmail }}
+      contacts:
+      {{- range $key, $value := .Values.microservices.web.contacts }}
+        - contact: {{ $key }}
+          {{- range $elem, $elemVal := $value }}
+          {{ $elem }}: {{ $elemVal }}
+          {{- end }}
+      {{- end }}
+    redis:
+      master_name: {{ .Values.datasources.redis.masterName }}
+      sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
+      host: {{ .Values.datasources.redis.host }}
+      port: {{ .Values.datasources.redis.port }}
+      dbid: {{ .Values.datasources.redis.db }}
+      connection_limit: {{ .Values.datasources.redis.connectionLimit }}
+    remote:
+      enabled: {{ .Values.datasources.remote.enabled }}
+      url: {{ .Values.datasources.remote.URL }}
+      timeout: {{ .Values.datasources.remote.timeout }}
+      check_interval: {{ .Values.datasources.remote.checkInterval }}
+      user: {{ .Values.datasources.remote.user }}
+      password: {{ .Values.datasources.remote.password }}
+    graphite:
+      enabled: {{ .Values.monitoring.graphite.enabled }}
+      uri: {{ .Values.monitoring.graphite.URI }}
+      interval: {{ .Values.monitoring.graphite.interval }}
+      prefix: {{ .Values.monitoring.graphite.prefix }}
+      runtime_stats: {{ .Values.monitoring.graphite.runtimeStats }}
+    logger:
+      log_level: {{ .Values.monitoring.logger.logLevel }}
+      log_file: {{ .Values.monitoring.logger.logFile }}
+    pprof:
+      listen: {{ .Values.monitoring.pprof.listen }}
