@@ -40,7 +40,7 @@ dependencies:
     repository: "file://../path/to/chart"
 ```
 
- - Pass contents of your `storage-schemas.conf` to `microservices.filter.retentionConfig`
+ - Pass contents of your `storage-schemas.conf` to `moira.microservices.filter.retentionConfig`
  - Specify `moira.datasources.remote` section parameters if you want to use [Remote Triggers](https://moira.readthedocs.io/en/latest/user_guide/advanced.html#data-source) feature
 
 # Configuration
