@@ -32,7 +32,7 @@
 #      listen: {{ .Values.monitoring.pprof.listen }}
 #  storage-schemas.conf: |
 #{{ .Values.microservices.filter.retentionConfig | indent 4 }}
----
+#---
 apiVersion: v1
 kind: ConfigMap
 metadata:
