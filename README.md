@@ -1,5 +1,48 @@
 # Moira
 
+Moira is a real-time alerting tool, based on [Graphite](https://graphite.readthedocs.io) data.
+
+# Installation
+
+Download chart:
+
+```console
+wget https://github.com/moira-alert/helmchart/releases/download/v2.6.0/moira-2.6.0.0.tar.gz -P ./charts/moira
+```
+
+## Single chart installation
+
+Simply pass redis host, port parameters to connect to a single redis node:
+
+```console
+$ helm install .charts/moira --name moira \
+    - set datasources.redis.host="redis" \
+    - set datasources.redis.port="6379"
+```
+
+or use masterName and sentinelAddrs to interact with redis sentinel setup:
+
+```console
+$ helm install .charts/moira --name moira \
+    - set datasources.redis.masterName="redisMaster" \
+    - set datasources.redis.sentinelAddrs="redisSentinel1:26379,redisSentinel2:2369,redisSentinel3:2369"
+```
+
+## As a part of Graphite installation
+
+ - Add chart as a dependency to requirements.yaml
+
+```yaml
+dependencies:
+  - name: moira
+    condition: moira.enabled
+    version: 2.6.0
+    repository: "file://../path/to/chart"
+```
+
+ - Pass contents of your `storage-schemas.conf` to `microservices.filter.retentionConfig`
+ - Specify `datasources.remote` section parameters if you want to use [Remote Triggers](https://moira.readthedocs.io/en/latest/user_guide/advanced.html#data-source) feature
+
 ## Topology configuration parameters
 
 ### Moira Filter
