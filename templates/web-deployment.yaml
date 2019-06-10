@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.web.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.web.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.web.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.web.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.web.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.web.name }}
+          image: {{ .Values.topology.web.image }}

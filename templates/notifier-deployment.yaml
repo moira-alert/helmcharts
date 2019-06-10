@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.notifier.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.notifier.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.notifier.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.notifier.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.notifier.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.notifier.name }}
+          image: {{ .Values.topology.notifier.image }}
+          volumeMounts:
+            - mountPath: /etc/moira
+              name: {{ .Values.topology.notifier.name }}-volume
+      volumes:
+        - name: {{ .Values.topology.notifier.name }}-volume
+          configMap:
+            name: {{ .Values.topology.notifier.name }}-configmap
+            items:
+              - key: notifier.yml
+                path: notifier.yml
