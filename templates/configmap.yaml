@@ -99,7 +99,7 @@ data:
           {{- range $elem, $elemVal := $value }}
           {{ $elem }}: {{ $elemVal }}
           {{- end }}
-      {{- end}}
+      {{- end }}
       moira_selfstate:
         enabled: {{ .Values.microservices.notifier.moiraSelfState.enabled }}
         remoteTriggersEnabled: {{ .Values.microservices.notifier.moiraSelfState.remoteTriggersEnabled }}
@@ -114,7 +114,7 @@ data:
             {{- range $elem, $elemVal := $value }}
             {{ $elem }}: {{ $elemVal }}
             {{- end }}
-        {{- end}}
+        {{- end }}
     redis:
       master_name: {{ .Values.datasources.redis.masterName }}
       sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
@@ -162,7 +162,7 @@ data:
           {{- range $elem, $elemVal := $value }}
           {{ $elem }}: {{ $elemVal }}
           {{- end }}
-      {{- end}}
+      {{- end }}
     redis:
       master_name: {{ .Values.datasources.redis.masterName }}
       sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
