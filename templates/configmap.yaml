@@ -1,37 +1,37 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Values.topology.filter.name }}-configmap
-  labels:
-    helm.sh/chart: {{ include "moira.chart" . }}
-    app.kubernetes.io/name: {{ .Values.topology.filter.name }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-data:
-  filter.yml: |
-    filter:
-      listen: {{ .Values.microservices.filter.listen }}
-      cache_capacity: {{ .Values.microservices.filter.cacheCapacity }}
-      max_parralel_matches: {{ .Values.microservices.filter.maxParallelMatches }}
-    redis:
-      master_name: {{ .Values.datasources.redis.masterName }}
-      sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
-      host: {{ .Values.datasources.redis.host }}
-      port: {{ .Values.datasources.redis.port }}
-      dbid: {{ .Values.datasources.redis.db }}
-      connection_limit: {{ .Values.datasources.redis.connectionLimit }}
-    graphite:
-      enabled: {{ .Values.monitoring.graphite.enabled }}
-      uri: {{ .Values.monitoring.graphite.URI }}
-      interval: {{ .Values.monitoring.graphite.interval }}
-      prefix: {{ .Values.monitoring.graphite.prefix }}
-      runtime_stats: {{ .Values.monitoring.graphite.runtimeStats }}
-    logger:
-      log_level: {{ .Values.monitoring.logger.logLevel }}
-      log_file: {{ .Values.monitoring.logger.logFile }}
-    pprof:
-      listen: {{ .Values.monitoring.pprof.listen }}
-  storage-schemas.conf: |-
-{{ .Values.microservices.filter.retentionConfig | indent 4 }}
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: {{ .Values.topology.filter.name }}-configmap
+#  labels:
+#    helm.sh/chart: {{ include "moira.chart" . }}
+#    app.kubernetes.io/name: {{ .Values.topology.filter.name }}
+#    app.kubernetes.io/instance: {{ .Release.Name }}
+#data:
+#  filter.yml: |
+#    filter:
+#      listen: {{ .Values.microservices.filter.listen }}
+#      cache_capacity: {{ .Values.microservices.filter.cacheCapacity }}
+#      max_parralel_matches: {{ .Values.microservices.filter.maxParallelMatches }}
+#    redis:
+#      master_name: {{ .Values.datasources.redis.masterName }}
+#      sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
+#      host: {{ .Values.datasources.redis.host }}
+#      port: {{ .Values.datasources.redis.port }}
+#      dbid: {{ .Values.datasources.redis.db }}
+#      connection_limit: {{ .Values.datasources.redis.connectionLimit }}
+#    graphite:
+#      enabled: {{ .Values.monitoring.graphite.enabled }}
+#      uri: {{ .Values.monitoring.graphite.URI }}
+#      interval: {{ .Values.monitoring.graphite.interval }}
+#      prefix: {{ .Values.monitoring.graphite.prefix }}
+#      runtime_stats: {{ .Values.monitoring.graphite.runtimeStats }}
+#    logger:
+#      log_level: {{ .Values.monitoring.logger.logLevel }}
+#      log_file: {{ .Values.monitoring.logger.logFile }}
+#    pprof:
+#      listen: {{ .Values.monitoring.pprof.listen }}
+#  storage-schemas.conf: |
+#{{ .Values.microservices.filter.retentionConfig | indent 4 }}
 ---
 apiVersion: v1
 kind: ConfigMap
