@@ -41,7 +41,9 @@ dependencies:
 ```
 
  - Pass contents of your `storage-schemas.conf` to `microservices.filter.retentionConfig`
- - Specify `datasources.remote` section parameters if you want to use [Remote Triggers](https://moira.readthedocs.io/en/latest/user_guide/advanced.html#data-source) feature
+ - Specify `moira.datasources.remote` section parameters if you want to use [Remote Triggers](https://moira.readthedocs.io/en/latest/user_guide/advanced.html#data-source) feature
+
+# Configuration
 
 ## Topology configuration parameters
 
