@@ -17,7 +17,7 @@ data:
       {{- range $key, $value := .Values.microservices.web.contacts }}
         - contact: {{ $key }}
           {{- range $elem, $elemVal := $value }}
-          {{ $elem }}: {{ $elemVal }}
+          {{ $elem }}: {{ $elemVal | quote }}
           {{- end }}
       {{- end }}
     redis:

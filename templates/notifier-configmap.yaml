@@ -18,7 +18,7 @@ data:
       {{- range $key, $value := .Values.microservices.notifier.senders }}
         - sender: {{ $key }}
           {{- range $elem, $elemVal := $value }}
-          {{ $elem }}: {{ $elemVal }}
+          {{ $elem }}: {{ $elemVal | quote }}
           {{- end }}
       {{- end }}
       moira_selfstate:
@@ -33,7 +33,7 @@ data:
         {{- range $key, $value := .Values.microservices.notifier.moiraSelfState.contacts }}
           - contact: {{ $key }}
             {{- range $elem, $elemVal := $value }}
-            {{ $elem }}: {{ $elemVal }}
+            {{ $elem }}: {{ $elemVal | quote }}
             {{- end }}
         {{- end }}
     redis:
