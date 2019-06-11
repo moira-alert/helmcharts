@@ -12,7 +12,7 @@ wget https://github.com/moira-alert/helmchart/releases/download/v2.6.0/moira-2.6
 
 ## Single chart installation
 
-Simply pass redis host, port parameters to connect to a single redis node:
+Simply pass Redis host, port parameters to connect to a single redis node:
 
 ```console
 $ helm install .charts/moira --name moira \
@@ -20,7 +20,7 @@ $ helm install .charts/moira --name moira \
     - set datasources.redis.port="6379"
 ```
 
-or use masterName and sentinelAddrs to interact with redis sentinel setup:
+or use masterName and sentinelAddrs to interact with Redis sentinel setup:
 
 ```console
 $ helm install .charts/moira --name moira \
@@ -30,7 +30,7 @@ $ helm install .charts/moira --name moira \
 
 ## As a part of Graphite installation
 
- - Add chart as a dependency to requirements.yaml
+ - Add chart as a dependency to [requirements.yaml](https://github.com/helm/helm/blob/master/docs/helm/helm_dependency.md)
 
 ```yaml
 dependencies:
@@ -52,35 +52,35 @@ Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.filter.name` | Moira Filter container name | `moira-filter`
 `topology.filter.image` | Moira Filter container image | `moira/filter:latest`
-`topology.filter.replicas` | Moira Filter container replicas number | `3`
+`topology.filter.replicas` | Moira Filter container replicas number | `1`
 
 ### Moira Checker
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.checker.name` | Moira Checker container name | `moira-checker`
 `topology.checker.image` | Moira Checker container image | `moira/checker:latest`
-`topology.checker.replicas` | Moira Checker container replicas number | `3`
+`topology.checker.replicas` | Moira Checker container replicas number | `1`
 
 ### Moira Notifier
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.notifier.name` | Moira Notifier container name | `moira-notifier`
 `topology.notifier.image` | Moira Notifier container image | `moira/notifier:latest`
-`topology.notifier.replicas` | Moira Notifier container replicas number | `3`
+`topology.notifier.replicas` | Moira Notifier container replicas number | `1`
 
 ### Moira API
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.api.name` | Moira API container name | `moira-api`
 `topology.api.image` | Moira API container image | `moira/api:latest`
-`topology.api.replicas` | Moira API container replicas number | `3`
+`topology.api.replicas` | Moira API container replicas number | `1`
 
 ### Moira Web
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.web.name` | Moira Web container name | `moira-web`
 `topology.web.image` | Moira Web container image | `moira/web2:latest`
-`topology.web.replicas` | Moira Web container replicas number | `3`
+`topology.web.replicas` | Moira Web container replicas number | `1`
 
 ## Ingress configuration parameters
 

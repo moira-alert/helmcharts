@@ -8,23 +8,23 @@ topology:
   filter:
     name: "moira-filter"
     image: "moira/filter:latest"
-    replicas: 3
+    replicas: 1
   checker:
     name: "moira-checker"
     image: "moira/checker:latest"
-    replicas: 3
+    replicas: 1
   notifier:
     name: "moira-notifier"
     image: "moira/notifier:latest"
-    replicas: 3
+    replicas: 1
   api:
     name: "moira-api"
     image: "moira/api:latest"
-    replicas: 3
+    replicas: 1
   web:
     name: "moira-web"
     image: "moira/web2:latest"
-    replicas: 3
+    replicas: 1
 
 # Moira configuration parameters
 # See more details at: https://moira.readthedocs.io/en/latest/installation/configuration.html
