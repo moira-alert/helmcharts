@@ -2,6 +2,11 @@
 
 Moira is a real-time alerting tool, based on [Graphite](https://graphite.readthedocs.io) data.
 
+# Prerequisites
+
+ - Kubernetes 1.4+ with Beta APIs enabled
+ - Redis 3.2+
+
 # Installation
 
 Add charts repo:
