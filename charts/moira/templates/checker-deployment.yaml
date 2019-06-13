@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.checker.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.checker.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.checker.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.checker.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/checker-configmap.yaml") . | sha256sum }}
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.checker.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.checker.name }}
+          image: {{ .Values.topology.checker.image }}
+          volumeMounts:
+            - mountPath: /etc/moira
+              name: {{ .Values.topology.checker.name }}-volume
+      volumes:
+        - name: {{ .Values.topology.checker.name }}-volume
+          configMap:
+            name: {{ .Values.topology.checker.name }}-configmap
+            items:
+              - key: checker.yml
+                path: checker.yml

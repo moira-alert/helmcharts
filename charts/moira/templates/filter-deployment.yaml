@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.topology.filter.name }}
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+    app.kubernetes.io/name: {{ .Values.topology.filter.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.topology.filter.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.topology.filter.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/filter-configmap.yaml") . | sha256sum }}
+      labels:
+        app.kubernetes.io/name: {{ .Values.topology.filter.name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.topology.filter.name }}
+          image: {{ .Values.topology.filter.image }}
+          volumeMounts:
+            - mountPath: /etc/moira
+              name: {{ .Values.topology.filter.name }}-volume
+      volumes:
+        - name: {{ .Values.topology.filter.name }}-volume
+          configMap:
+            name: {{ .Values.topology.filter.name }}-configmap
+            items:
+              - key: filter.yml
+                path: filter.yml
+              - key: storage-schemas.conf
+                path: storage-schemas.conf

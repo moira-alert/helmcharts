@@ -1,0 +1,28 @@
+apiVersion: v1
+entries:
+  moira:
+  - apiVersion: v1
+    created: 2019-06-13T20:29:24.071338+05:00
+    description: Moira is a real-time alerting tool, based on Graphite data.
+    digest: 85f3c68c96cac3f1cb6885f30c9656bcda5dd0d056dc40407a81423ec15d9bca
+    home: https://moira.readthedocs.io
+    icon: https://avatars1.githubusercontent.com/u/15890491
+    keywords:
+    - moira
+    - monitoring
+    - alerting
+    - graphite
+    - prometheus
+    maintainers:
+    - email: timurkamaev@protonmail.com
+      name: Timur Kamaev
+    - email: razor3kr@gmail.com
+      name: Nikolay Teslya
+    name: moira
+    sources:
+    - https://github.com/moira-alert/moira
+    - https://github.com/moira-alert/web2.0
+    urls:
+    - https://moira-alert.github.com/helmcharts/moira-2.6.0.tgz
+    version: 2.6.0
+generated: 2019-06-13T20:29:24.0703401+05:00

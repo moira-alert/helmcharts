@@ -1,0 +1,21 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-ingress
+  labels:
+    helm.sh/chart: {{ include "moira.chart" . }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ .Values.topology.web.name }}
+              servicePort: 80
+          - path: /api
+            backend:
+              serviceName: {{ .Values.topology.api.name }}
+              servicePort: 8081
+{{- end -}}
