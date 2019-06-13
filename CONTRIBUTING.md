@@ -1,6 +1,6 @@
 # Contributing
 
-To add new or update existing helm chart:
+To add new or update existing chart:
 
  - Place chart files into `charts/chartName` directory
  - Execute `helm package charts/chartName`
