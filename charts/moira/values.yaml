@@ -86,6 +86,10 @@ microservices:
     # telegram:
     #   type: telegram
     #   api_token: "telegramApiToken"
+    # webhookToTrusted:
+    #   type: webhook
+    #   name: webhook to trusted
+    #   url: ${contact_value}
     senders: {}
     # Self state monitor configuration section. Note: No inner subscriptions is required. Moira will use its notification mechanism to send messages
     moiraSelfState:
@@ -121,10 +125,16 @@ microservices:
     # slack:
     #   type: slack
     #   label: Slack
+    #   validation: "^[@#][a-zA-Z0-9-_]+"
+    #   placeholder: "Slack #channel or @user"
     # telegram:
-    #   type: slack
+    #   type: telegram
     #   label: Telegram
     #   help: required to grant @MoiraBot admin privileges
+    # webhookToTrusted:
+    #   type: webhook
+    #   name: webhook to trusted
+    #   validation: "^(http|https):\\/\\/.*(allowedDomainsRegex..."
     contacts: {}
     # Moira administrator email address
     supportEmail: ""
