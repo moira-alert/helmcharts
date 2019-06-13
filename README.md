@@ -51,35 +51,35 @@ dependencies:
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.filter.name` | Moira Filter container name | `moira-filter`
-`topology.filter.image` | Moira Filter container image | `moira/filter:latest`
+`topology.filter.image` | Moira Filter container image | `moira/filter:2.6.0.0`
 `topology.filter.replicas` | Moira Filter container replicas number | `1`
 
 ### Moira Checker
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.checker.name` | Moira Checker container name | `moira-checker`
-`topology.checker.image` | Moira Checker container image | `moira/checker:latest`
+`topology.checker.image` | Moira Checker container image | `moira/checker:2.6.0.0`
 `topology.checker.replicas` | Moira Checker container replicas number | `1`
 
 ### Moira Notifier
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.notifier.name` | Moira Notifier container name | `moira-notifier`
-`topology.notifier.image` | Moira Notifier container image | `moira/notifier:latest`
+`topology.notifier.image` | Moira Notifier container image | `moira/notifier:2.6.0.0`
 `topology.notifier.replicas` | Moira Notifier container replicas number | `1`
 
 ### Moira API
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.api.name` | Moira API container name | `moira-api`
-`topology.api.image` | Moira API container image | `moira/api:latest`
+`topology.api.image` | Moira API container image | `moira/api:2.6.0.0`
 `topology.api.replicas` | Moira API container replicas number | `1`
 
 ### Moira Web
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `topology.web.name` | Moira Web container name | `moira-web`
-`topology.web.image` | Moira Web container image | `moira/web2:latest`
+`topology.web.image` | Moira Web container image | `moira/web2:2.6.0.0`
 `topology.web.replicas` | Moira Web container replicas number | `1`
 
 ## Ingress configuration parameters
@@ -156,7 +156,7 @@ Parameter | Description | Default value
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `datasources.remote.enabled` | If true, remote datasource will be enabled | `false`
-`datasources.remote.URL` | URL of Graphite HTTP API | `https://localhost/carbonapi/render`
+`datasources.remote.url` | URL of Graphite HTTP API | `https://localhost/carbonapi/render`
 `datasources.remote.user` | Auth username (Basic-auth) | `""`
 `datasources.remote.password` | Auth password (Basic-auth) | `""`
 `datasources.remote.checkInterval` | Min period to perform triggers re-check | `60s`
@@ -169,7 +169,7 @@ Parameter | Description | Default value
 --------- | ----------- | -------------
 `monitoring.graphite.enabled` | If true, graphite sender will be enabled | `false`
 `monitoring.graphite.runtimeStats` | If true, runtime stats will be captured and sent to graphite | `false`
-`monitoring.graphite.URI` | Graphite relay URI | `localhost:2003`
+`monitoring.graphite.uri` | Graphite relay URI | `localhost:2003`
 `monitoring.graphite.prefix` | Metrics prefix | `DevOps.Moira.{hostname}`
 `monitoring.graphite.interval` | Metrics sending interval | `60s`
 

@@ -29,14 +29,14 @@ data:
       connection_limit: {{ .Values.datasources.redis.connectionLimit }}
     remote:
       enabled: {{ .Values.datasources.remote.enabled }}
-      url: {{ .Values.datasources.remote.URL }}
+      url: {{ .Values.datasources.remote.url }}
       timeout: {{ .Values.datasources.remote.timeout }}
       check_interval: {{ .Values.datasources.remote.checkInterval }}
       user: {{ .Values.datasources.remote.user }}
       password: {{ .Values.datasources.remote.password }}
     graphite:
       enabled: {{ .Values.monitoring.graphite.enabled }}
-      uri: {{ .Values.monitoring.graphite.URI }}
+      uri: {{ .Values.monitoring.graphite.uri }}
       interval: {{ .Values.monitoring.graphite.interval }}
       prefix: {{ .Values.monitoring.graphite.prefix }}
       runtime_stats: {{ .Values.monitoring.graphite.runtimeStats }}

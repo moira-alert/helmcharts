@@ -7,23 +7,23 @@ ingress:
 topology:
   filter:
     name: "moira-filter"
-    image: "moira/filter:latest"
+    image: "moira/filter:2.6.0.0"
     replicas: 1
   checker:
     name: "moira-checker"
-    image: "moira/checker:latest"
+    image: "moira/checker:2.6.0.0"
     replicas: 1
   notifier:
     name: "moira-notifier"
-    image: "moira/notifier:latest"
+    image: "moira/notifier:2.6.0.0"
     replicas: 1
   api:
     name: "moira-api"
-    image: "moira/api:latest"
+    image: "moira/api:2.6.0.0"
     replicas: 1
   web:
     name: "moira-web"
-    image: "moira/web2:latest"
+    image: "moira/web2:2.6.0.0"
     replicas: 1
 
 # Moira configuration parameters
@@ -153,7 +153,7 @@ datasources:
     enabled: false
     # URL of Graphite HTTP API: graphite-web, carbonapi, etc.
     # Specify full URL including '/render'
-    URL: "https://localhost/carbonapi/render"
+    url: "https://localhost/carbonapi/render"
     # Auth username (Basic-auth)
     user: ""
     # Auth password (Basic-auth)
@@ -174,7 +174,7 @@ monitoring:
     # "graphite.interval" to capture runtime stats (https://golang.org/src/runtime/mstats.go)
     runtimeStats: false
     # Graphite relay URI, format: ip:port
-    URI: "localhost:2003"
+    uri: "localhost:2003"
     # Metrics prefix. Use 'prefix: {hostname}' to use hostname autoresolver.
     prefix: "DevOps.Moira.{hostname}"
     # Metrics sending interval

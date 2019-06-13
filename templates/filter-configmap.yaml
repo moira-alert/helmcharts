@@ -21,7 +21,7 @@ data:
       connection_limit: {{ .Values.datasources.redis.connectionLimit }}
     graphite:
       enabled: {{ .Values.monitoring.graphite.enabled }}
-      uri: {{ .Values.monitoring.graphite.URI }}
+      uri: {{ .Values.monitoring.graphite.uri }}
       interval: {{ .Values.monitoring.graphite.interval }}
       prefix: {{ .Values.monitoring.graphite.prefix }}
       runtime_stats: {{ .Values.monitoring.graphite.runtimeStats }}
