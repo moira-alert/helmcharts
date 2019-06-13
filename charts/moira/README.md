@@ -4,10 +4,10 @@ Moira is a real-time alerting tool, based on [Graphite](https://graphite.readthe
 
 # Installation
 
-Download chart:
+Add charts repo:
 
 ```console
-wget https://github.com/moira-alert/helmchart/releases/download/v2.6.0/moira-2.6.0.0.tar.gz -P ./charts/moira
+helm repo add moiracharts https://moira-alert.github.io/helmcharts
 ```
 
 ## Single chart installation
@@ -15,7 +15,7 @@ wget https://github.com/moira-alert/helmchart/releases/download/v2.6.0/moira-2.6
 Simply pass Redis host, port parameters to connect to a single redis node:
 
 ```console
-$ helm install .charts/moira --name moira \
+$ helm install moiracharts/moira --name moira \
     - set datasources.redis.host="redis" \
     - set datasources.redis.port="6379"
 ```
@@ -23,7 +23,7 @@ $ helm install .charts/moira --name moira \
 or use masterName and sentinelAddrs to interact with Redis sentinel setup:
 
 ```console
-$ helm install .charts/moira --name moira \
+$ helm install moiracharts/moira --name moira \
     - set datasources.redis.masterName="redisMaster" \
     - set datasources.redis.sentinelAddrs="redisSentinel1:26379,redisSentinel2:2369,redisSentinel3:2369"
 ```
@@ -37,7 +37,7 @@ dependencies:
   - name: moira
     condition: moira.enabled
     version: 2.6.0
-    repository: "file://../path/to/chart"
+    repository: "https://moira-alert.github.io/helmcharts"
 ```
 
  - Pass contents of your `storage-schemas.conf` to `moira.microservices.filter.retentionConfig`
