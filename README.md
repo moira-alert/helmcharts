@@ -4,13 +4,13 @@
 
 If you're new here, better check out our main [README](https://github.com/moira-alert/moira/blob/master/README.md).
 
-## Add repo
+### Add repo
 
 ```console
 helm repo add moiracharts https://moira-alert.github.io/helmcharts
 ```
 
-## List all available charts
+### List all available charts
 
 ```console
 helm search moiracharts
