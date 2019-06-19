@@ -126,7 +126,8 @@ microservices:
     #   type: slack
     #   label: Slack
     #   validation: "^[@#][a-zA-Z0-9-_]+"
-    #   placeholder: "Slack #channel or @user"
+    #   placeholder: |
+    #     "Slack #channel or @user"
     # telegram:
     #   type: telegram
     #   label: Telegram
