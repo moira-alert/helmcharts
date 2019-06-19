@@ -1,4 +1,4 @@
-# Contributing
+# Contributing Guide
 
 To add new or update existing chart:
 

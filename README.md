@@ -4,14 +4,20 @@
 
 If you're new here, better check out our main [README](https://github.com/moira-alert/moira/blob/master/README.md).
 
-### Add repo
+## Accessing repo charts
+
+To add Moira charts repo execute:
 
 ```console
 helm repo add moiracharts https://moira-alert.github.io/helmcharts
 ```
 
-### List all available charts
+To list all available repo charts execute:
 
 ```console
 helm search moiracharts
 ```
+
+## Contributing repo charts
+
+To get to know how to create, update and delete repo charts see [Contributing guide](CONTRIBUTING.md).
