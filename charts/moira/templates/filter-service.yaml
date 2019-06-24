@@ -11,6 +11,7 @@ spec:
     - name: graphite
       port: 2003
       protocol: TCP
+      nodePort: 2003
   selector:
     app.kubernetes.io/name: {{ .Values.topology.filter.name }}
     app.kubernetes.io/instance: {{ .Release.Name }}
