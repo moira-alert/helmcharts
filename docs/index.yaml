@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   moira:
   - apiVersion: v1
-    created: 2019-06-24T17:27:45.2443489+05:00
+    created: 2019-06-24T17:32:28.094206+05:00
     description: Moira is a real-time alerting tool, based on Graphite data.
-    digest: c7913c61bfb5996e76381e7069ab5a6221b91eaa5aea8d92f2485756ae0b0b4f
+    digest: 89b69082f98082b05d5a3cf9fd72f1228e537f981058bce255f75492054d8c3f
     home: https://moira.readthedocs.io
     icon: https://avatars1.githubusercontent.com/u/15890491
     keywords:
@@ -25,4 +25,4 @@ entries:
     urls:
     - https://moira-alert.github.io/helmcharts/moira-2.6.0.tgz
     version: 2.6.0
-generated: 2019-06-24T17:27:45.243321+05:00
+generated: 2019-06-24T17:32:28.0932075+05:00
