@@ -11,10 +11,7 @@ spec:
     - name: graphite
       port: 2003
       protocol: TCP
-      {{- if not (empty .Values.microservices.filter.nodeListen) }}
-      nodePort: {{ .Values.microservices.filter.nodeListen }}
-      {{- end }}
   selector:
     app.kubernetes.io/name: {{ .Values.topology.filter.name }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-  type: NodePort
+  type: ClusterIP
