@@ -7,11 +7,20 @@ metadata:
     app.kubernetes.io/name: {{ .Values.topology.filter.name }}
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
+  selector:
+    app.kubernetes.io/name: {{ .Values.topology.filter.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  {{- if not (empty .Values.microservices.filter.nodeListen) }}
   ports:
     - name: graphite
       port: 2003
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: {{ .Values.topology.filter.name }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+      nodePort: {{ .Values.microservices.filter.nodeListen }}
+  type: NodePort
+  {{- else }}
+  ports:
+    - name: graphite
+      port: 2003
+      protocol: TCP
   type: ClusterIP
+  {{- end }}

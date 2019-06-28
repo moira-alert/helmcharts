@@ -34,6 +34,7 @@ microservices:
   filter:
     # Metrics listener uri
     listen: ":2003"
+    # nodeListen: 30000-32767
     # Retentions config file content. Simply use your original storage-schemas.conf or create new if you're using Moira without existing Graphite installation
     retentionConfig: |
       [default]
