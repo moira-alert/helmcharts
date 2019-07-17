@@ -21,3 +21,5 @@ spec:
       containers:
         - name: {{ .Values.topology.web.name }}
           image: {{ .Values.topology.web.image }}
+          resources:
+{{ toYaml .Values.topology.web.resources | indent 12 }}

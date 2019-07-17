@@ -20,6 +20,13 @@ spec:
         app.kubernetes.io/name: {{ .Values.topology.api.name }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      volumes:
+        - name: {{ .Values.topology.api.name }}-volume
+          configMap:
+            name: {{ .Values.topology.api.name }}-configmap
+            items:
+              - key: api.yml
+                path: api.yml
       containers:
         - name: {{ .Values.topology.api.name }}
           image: {{ .Values.topology.api.image }}
@@ -41,10 +48,5 @@ spec:
           volumeMounts:
             - mountPath: /etc/moira
               name: {{ .Values.topology.api.name }}-volume
-      volumes:
-        - name: {{ .Values.topology.api.name }}-volume
-          configMap:
-            name: {{ .Values.topology.api.name }}-configmap
-            items:
-              - key: api.yml
-                path: api.yml
+          resources:
+{{ toYaml .Values.topology.api.resources | indent 12 }}

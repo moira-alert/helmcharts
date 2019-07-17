@@ -9,22 +9,27 @@ topology:
     name: "moira-filter"
     image: "moira/filter:2.6.0.0"
     replicas: 1
+    resources: {}
   checker:
     name: "moira-checker"
     image: "moira/checker:2.6.0.0"
     replicas: 1
+    resources: {}
   notifier:
     name: "moira-notifier"
     image: "moira/notifier:2.6.0.0"
     replicas: 1
+    resources: {}
   api:
     name: "moira-api"
     image: "moira/api:2.6.0.0"
     replicas: 1
+    resources: {}
   web:
     name: "moira-web"
     image: "moira/web2:2.6.0.0"
     replicas: 1
+    resources: {}
 
 # Moira configuration parameters
 # See more details at: https://moira.readthedocs.io/en/latest/installation/configuration.html

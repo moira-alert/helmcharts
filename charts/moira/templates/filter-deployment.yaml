@@ -20,12 +20,6 @@ spec:
         app.kubernetes.io/name: {{ .Values.topology.filter.name }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-      containers:
-        - name: {{ .Values.topology.filter.name }}
-          image: {{ .Values.topology.filter.image }}
-          volumeMounts:
-            - mountPath: /etc/moira
-              name: {{ .Values.topology.filter.name }}-volume
       volumes:
         - name: {{ .Values.topology.filter.name }}-volume
           configMap:
@@ -35,3 +29,11 @@ spec:
                 path: filter.yml
               - key: storage-schemas.conf
                 path: storage-schemas.conf
+      containers:
+        - name: {{ .Values.topology.filter.name }}
+          image: {{ .Values.topology.filter.image }}
+          volumeMounts:
+            - mountPath: /etc/moira
+              name: {{ .Values.topology.filter.name }}-volume
+          resources:
+{{ toYaml .Values.topology.filter.resources | indent 12 }}
