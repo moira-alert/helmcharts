@@ -32,6 +32,21 @@ spec:
       containers:
         - name: {{ .Values.topology.filter.name }}
           image: {{ .Values.topology.filter.image }}
+          ports:
+            - name: graphite
+              containerPort: 2003
+          livenessProbe:
+            tcpSocket:
+              port: graphite
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            timeoutSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: graphite
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            timeoutSeconds: 30
           volumeMounts:
             - mountPath: /etc/moira
               name: {{ .Values.topology.filter.name }}-volume
