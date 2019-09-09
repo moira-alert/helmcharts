@@ -37,7 +37,7 @@ spec:
             httpGet:
               path: /api/health/notifier
               port: http
-            initialDelaySeconds: 10
+            initialDelaySeconds: 600
             timeoutSeconds: 10
           readinessProbe:
             httpGet:
