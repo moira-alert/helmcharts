@@ -181,8 +181,10 @@ datasources:
     # Max timeout for HTTP-request made to Graphite HTTP API
     timeout: "60s"
 
-# Monitoring configuration parameters
-monitoring:
+# Telemetry configuration parameters
+telemetry:
+  # Telemetry listener local network address
+  listen: ""
   # Graphite metrics sender
   graphite:
     # If true, graphite sender will be enabled
@@ -204,5 +206,5 @@ monitoring:
     logFile: "stdout"
   # Profiling server
   pprof:
-    # Profiling server local network address
-    listen: ""
+    # If true, profiling server will be enabled
+    enabled: false

@@ -50,14 +50,16 @@ data:
       check_interval: {{ .Values.datasources.remote.checkInterval }}
       user: {{ .Values.datasources.remote.user }}
       password: {{ .Values.datasources.remote.password }}
-    graphite:
-      enabled: {{ .Values.monitoring.graphite.enabled }}
-      uri: {{ .Values.monitoring.graphite.uri }}
-      interval: {{ .Values.monitoring.graphite.interval }}
-      prefix: {{ .Values.monitoring.graphite.prefix }}
-      runtime_stats: {{ .Values.monitoring.graphite.runtimeStats }}
     logger:
-      log_level: {{ .Values.monitoring.logger.logLevel }}
-      log_file: {{ .Values.monitoring.logger.logFile }}
-    pprof:
-      listen: {{ .Values.monitoring.pprof.listen }}
+      log_level: {{ .Values.telemetry.logger.logLevel }}
+      log_file: {{ .Values.telemetry.logger.logFile }}
+    telemetry:
+      listen: {{ .Values.telemetry.listen }}
+      graphite:
+        enabled: {{ .Values.telemetry.graphite.enabled }}
+        uri: {{ .Values.telemetry.graphite.uri }}
+        interval: {{ .Values.telemetry.graphite.interval }}
+        prefix: {{ .Values.telemetry.graphite.prefix }}
+        runtime_stats: {{ .Values.telemetry.graphite.runtimeStats }}
+      pprof: 
+        enabled: {{ .Values.telemetry.pprof.enabled }}
