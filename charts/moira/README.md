@@ -167,24 +167,27 @@ Parameter | Description | Default value
 `datasources.remote.checkInterval` | Min period to perform triggers re-check | `60s`
 `datasources.remote.timeout` | Max timeout for HTTP-request made to Graphite HTTP API | `60s`
 
-## Monitoring configuration parameters
+## Telemetry configuration parameters
+Parameter | Description | Default value
+--------- | ----------- | -------------
+`telemetry.listen` | Telemetry listener local network address | `""`
 
 ### Graphite metrics sender
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`monitoring.graphite.enabled` | If true, graphite sender will be enabled | `false`
-`monitoring.graphite.runtimeStats` | If true, runtime stats will be captured and sent to graphite | `false`
-`monitoring.graphite.uri` | Graphite relay URI | `localhost:2003`
-`monitoring.graphite.prefix` | Metrics prefix | `DevOps.Moira.{hostname}`
-`monitoring.graphite.interval` | Metrics sending interval | `60s`
+`telemetry.graphite.enabled` | If true, graphite sender will be enabled | `false`
+`telemetry.graphite.runtimeStats` | If true, runtime stats will be captured and sent to graphite | `false`
+`telemetry.graphite.uri` | Graphite relay URI | `localhost:2003`
+`telemetry.graphite.prefix` | Metrics prefix | `DevOps.Moira.{hostname}`
+`telemetry.graphite.interval` | Metrics sending interval | `60s`
 
 ### Log sender
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`monitoring.logger.logLevel` | Log level | `info`
-`monitoring.logger.logFile` | Log file path | `stdout`
+`telemetry.logger.logLevel` | Log level | `info`
+`telemetry.logger.logFile` | Log file path | `stdout`
 
 ### Profiling server
 Parameter | Description | Default value
 --------- | ----------- | -------------
-`monitoring.pprof.listen` | Profiling server local network address | `""`
+`telemetry.pprof.enabled` | If true, profiling server will be enabled | `false`
