@@ -103,6 +103,7 @@ Parameter | Description | Default value
 `microservices.filter.retentionConfig` | Retentions config file content | `Default schema`
 `microservices.filter.cacheCapacity` | Number of metrics to cache before checking them | `10`
 `microservices.filter.maxParallelMatches` | Number of threads to match incoming graphite-metrics | `0`
+`microservices.filter.patternsUpdatePeriod` | Period in which patterns will be reloaded from Redis | `1s`
 
 ### Moira Checker
 Parameter | Description | Default value

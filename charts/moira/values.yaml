@@ -53,6 +53,8 @@ microservices:
     # Defines number of threads to match incoming graphite-metrics
     # Equals to the number of processor cores found on Moira host by default or when variable is defined as 0
     maxParallelMatches: 0
+    # Period in which patterns will be reloaded from Redis
+    patternsUpdatePeriod: "1s"
   checker:
     # Period for every trigger to perform forced check on
     nodataCheckInterval: "60s"
