@@ -12,6 +12,7 @@ data:
       listen: {{ .Values.microservices.filter.listen }}
       cache_capacity: {{ .Values.microservices.filter.cacheCapacity }}
       max_parallel_matches: {{ .Values.microservices.filter.maxParallelMatches }}
+      patterns_update_period: {{ .Values.microservices.filter.patternsUpdatePeriod }}
     redis:
       master_name: {{ .Values.datasources.redis.masterName }}
       sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
