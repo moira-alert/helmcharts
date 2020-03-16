@@ -166,6 +166,8 @@ datasources:
     db: 0
     # Redis client connection pool size
     connectionLimit: 512
+    # Allow reading data from slave replicas
+    allowSlaveReads: true
   # Remote datasource configuration
   remote:
     # If true, remote datasource will be enabled

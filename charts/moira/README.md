@@ -157,6 +157,7 @@ Parameter | Description | Default value
 `datasources.redis.port` | Node port | `""`
 `datasources.redis.db` | Database id | `0`
 `datasources.redis.connectionLimit` | Redis client connection pool size | `512`
+`datasources.redis.allowSlaveReads` | Allow reading data from slave replicas | `true`
 
 ### Remote (Graphite)
 Parameter | Description | Default value

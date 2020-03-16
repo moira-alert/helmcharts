@@ -23,6 +23,7 @@ data:
       port: {{ .Values.datasources.redis.port }}
       dbid: {{ .Values.datasources.redis.db }}
       connection_limit: {{ .Values.datasources.redis.connectionLimit }}
+      allow_slave_reads: {{ .Values.datasources.redis.allowSlaveReads }}
     remote:
       enabled: {{ .Values.datasources.remote.enabled }}
       url: {{ .Values.datasources.remote.url }}
