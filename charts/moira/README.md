@@ -111,7 +111,6 @@ Parameter | Description | Default value
 `microservices.checker.nodataCheckInterval` | Period for every trigger to perform forced check on | `60s`
 `microservices.checker.checkInterval` | Min period to perform active triggers re-check | `10s`
 `microservices.checker.lazyTriggersCheckInterval` | Min period to perform inactive triggers re-check | `10m`
-`microservices.checker.metricsTTL` | Time interval to store metrics | `3h`
 `microservices.checker.stopCheckingInterval` | Period for every trigger to cancel forced check if no metrics were received | `30s`
 `microservices.checker.maxParallelChecks` | Max parallel checks number for local triggers | `0`
 `microservices.checker.maxParallelRemoteChecks` | Max parallel checks number for remote triggers  | `0`
@@ -158,6 +157,7 @@ Parameter | Description | Default value
 `datasources.redis.db` | Database id | `0`
 `datasources.redis.connectionLimit` | Redis client connection pool size | `512`
 `datasources.redis.allowSlaveReads` | Allow reading data from slave replicas | `true`
+`datasources.redis.metricsTTL` | Delete metrics older than this value from Redis | `3h`
 
 ### Remote (Graphite)
 Parameter | Description | Default value
@@ -167,6 +167,7 @@ Parameter | Description | Default value
 `datasources.remote.user` | Auth username (Basic-auth) | `""`
 `datasources.remote.password` | Auth password (Basic-auth) | `""`
 `datasources.remote.checkInterval` | Min period to perform triggers re-check | `60s`
+`datasources.remote.metricsTTL` | Don't fetch metrics older than this value from remote storage | `7d`
 `datasources.remote.timeout` | Max timeout for HTTP-request made to Graphite HTTP API | `60s`
 
 ## Telemetry configuration parameters

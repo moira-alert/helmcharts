@@ -44,11 +44,13 @@ data:
       dbid: {{ .Values.datasources.redis.db }}
       connection_limit: {{ .Values.datasources.redis.connectionLimit }}
       allow_slave_reads: {{ .Values.datasources.redis.allowSlaveReads }}
+      metrics_ttl: {{ .Values.datasources.redis.metricsTTL }}
     remote:
       enabled: {{ .Values.datasources.remote.enabled }}
       url: {{ .Values.datasources.remote.url }}
       timeout: {{ .Values.datasources.remote.timeout }}
       check_interval: {{ .Values.datasources.remote.checkInterval }}
+      metrics_ttl: {{ .Values.datasources.remote.metricsTTL }}
       user: {{ .Values.datasources.remote.user }}
       password: {{ .Values.datasources.remote.password }}
     logger:

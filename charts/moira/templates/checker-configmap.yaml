@@ -9,7 +9,6 @@ metadata:
 data:
   checker.yml: |
     checker:
-      metrics_ttl: {{ .Values.microservices.checker.metricsTTL }}
       check_interval: {{ .Values.microservices.checker.checkInterval }}
       lazy_triggers_check_interval: {{ .Values.microservices.checker.lazyTriggersCheckInterval }}
       max_parallel_checks: {{ .Values.microservices.checker.maxParallelChecks }}
@@ -24,11 +23,13 @@ data:
       dbid: {{ .Values.datasources.redis.db }}
       connection_limit: {{ .Values.datasources.redis.connectionLimit }}
       allow_slave_reads: {{ .Values.datasources.redis.allowSlaveReads }}
+      metrics_ttl: {{ .Values.datasources.redis.metricsTTL }}
     remote:
       enabled: {{ .Values.datasources.remote.enabled }}
       url: {{ .Values.datasources.remote.url }}
       timeout: {{ .Values.datasources.remote.timeout }}
       check_interval: {{ .Values.datasources.remote.checkInterval }}
+      metrics_ttl: {{ .Values.datasources.remote.metricsTTL }}
       user: {{ .Values.datasources.remote.user }}
       password: {{ .Values.datasources.remote.password }}
     logger:

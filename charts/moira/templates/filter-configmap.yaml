@@ -21,6 +21,7 @@ data:
       dbid: {{ .Values.datasources.redis.db }}
       connection_limit: {{ .Values.datasources.redis.connectionLimit }}
       allow_slave_reads: {{ .Values.datasources.redis.allowSlaveReads }}
+      metrics_ttl: {{ .Values.datasources.redis.metricsTTL }}
     logger:
       log_level: {{ .Values.telemetry.logger.logLevel }}
       log_file: {{ .Values.telemetry.logger.logFile }}
