@@ -183,7 +183,7 @@ datasources:
     # Note: Reducing of this value leads to increasing of CPU and memory usage values and extra load on Graphite HTTP API
     checkInterval: "60s"
     # Don't fetch metrics older than this value from remote storage
-    metricsTTL: "7d"
+    metricsTTL: "168h"
     # Max timeout for HTTP-request made to Graphite HTTP API
     timeout: "60s"
 
