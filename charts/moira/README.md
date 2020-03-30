@@ -167,7 +167,7 @@ Parameter | Description | Default value
 `datasources.remote.user` | Auth username (Basic-auth) | `""`
 `datasources.remote.password` | Auth password (Basic-auth) | `""`
 `datasources.remote.checkInterval` | Min period to perform triggers re-check | `60s`
-`datasources.remote.metricsTTL` | Don't fetch metrics older than this value from remote storage | `7d`
+`datasources.remote.metricsTTL` | Don't fetch metrics older than this value from remote storage | `168h`
 `datasources.remote.timeout` | Max timeout for HTTP-request made to Graphite HTTP API | `60s`
 
 ## Telemetry configuration parameters
