@@ -214,3 +214,8 @@ telemetry:
   pprof:
     # If true, profiling server will be enabled
     enabled: false
+
+prometheus:
+  enabled: false
+  # Same port as in telemetry.listen
+  port: ""

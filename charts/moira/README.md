@@ -194,3 +194,9 @@ Parameter | Description | Default value
 Parameter | Description | Default value
 --------- | ----------- | -------------
 `telemetry.pprof.enabled` | If true, profiling server will be enabled | `false`
+
+### Prometheus scraping configuration
+Parameter | Description | Default value
+--------- | ----------- | -------------
+`telemetry.prometheus.enabled` | If true, prometheus will be scrape services metrics | `false`
+`telemetry.prometheus.port` | Scrape port, must be as telemetry.listen port | `""`
