@@ -16,6 +16,12 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/api-configmap.yaml") . | sha256sum }}
+        {{- if .Values.prometheus.enabled }}
+        prometheus.io/scrape: "true"
+        {{- if not (empty .Values.prometheus.port) }}
+        prometheus.io/port: "{{ .Values.prometheus.port }}"
+        {{- end }}
+        {{- end }}
       labels:
         app.kubernetes.io/name: {{ .Values.topology.api.name }}
         app.kubernetes.io/instance: {{ .Release.Name }}
