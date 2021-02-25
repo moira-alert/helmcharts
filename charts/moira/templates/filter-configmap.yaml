@@ -25,6 +25,7 @@ data:
     logger:
       log_level: {{ .Values.telemetry.logger.logLevel }}
       log_file: {{ .Values.telemetry.logger.logFile }}
+      log_pretty_format: {{ .Values.telemetry.logger.logPrettyFormat }}
     telemetry:
       listen: {{ .Values.telemetry.listen }}
       graphite:

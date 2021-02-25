@@ -72,6 +72,12 @@ microservices:
     # Is related with remote triggers (see remote section)
     # Equals to the number of processor cores found on Moira host by default or when variable is defined as 0
     maxParallelRemoteChecks: 0
+    # Adjusting minimal log level with concrete fields  
+    # setLogLevel:
+    #   triggers:
+    #     - id: "111"
+    #       level: "debug"
+    setLogLevel: {}
   notifier:
     # Soft timeout to start retrying to send notification after single failed attempt
     senderTimeout: "10s"
@@ -121,6 +127,15 @@ microservices:
       #   type: telegram
       #   value: Moira Selfstate
       contacts: {}
+    # Adjusting minimal log level with concrete fields  
+    # setLogLevel:
+    #   triggers:
+    #     - id: "111"
+    #       level: "debug"
+    #   subscriptions:
+    #     - id: "999"
+    #       level: "warn"
+    setLogLevel: {}
   api:
     # API local network address. Default is ':8081' so api will be available at http://moira.company.com:8081/api
     listen: ":8081"
@@ -210,6 +225,8 @@ telemetry:
     logLevel: "info"
     # Log file path
     logFile: "stdout"
+    # Enable human-readable console output
+    logPrettyFormat: false
   # Profiling server
   pprof:
     # If true, profiling server will be enabled
