@@ -36,6 +36,14 @@ data:
             {{ $elem }}: {{ $elemVal | quote }}
             {{- end }}
         {{- end }}
+      set_log_level:
+        {{- range $key, $value := .Values.microservices.notifier.setLogLevel }}
+          - {{ $key }}:
+            {{- range $elem, $elemVal := $value }}
+              - id: {{ $elemVal.id | quote }}
+                level: {{ $elemVal.level | quote }}
+            {{- end }}
+        {{- end }}
     redis:
       master_name: {{ .Values.datasources.redis.masterName }}
       sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
@@ -56,6 +64,7 @@ data:
     logger:
       log_level: {{ .Values.telemetry.logger.logLevel }}
       log_file: {{ .Values.telemetry.logger.logFile }}
+      log_pretty_format: {{ .Values.telemetry.logger.logPrettyFormat }}
     telemetry:
       listen: {{ .Values.telemetry.listen }}
       graphite:

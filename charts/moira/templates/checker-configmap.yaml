@@ -15,6 +15,14 @@ data:
       max_parallel_remote_checks: {{ .Values.microservices.checker.maxParallelRemoteChecks }}
       nodata_check_interval: {{ .Values.microservices.checker.nodataCheckInterval }}
       stop_checking_interval: {{ .Values.microservices.checker.stopCheckingInterval }}
+      set_log_level:
+        {{- range $key, $value := .Values.microservices.checker.setLogLevel }}
+          - {{ $key }}:
+            {{- range $elem, $elemVal := $value }}
+              - id: {{ $elemVal.id | quote }}
+                level: {{ $elemVal.level | quote }}
+            {{- end }}
+        {{- end }}
     redis:
       master_name: {{ .Values.datasources.redis.masterName }}
       sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
@@ -35,6 +43,7 @@ data:
     logger:
       log_level: {{ .Values.telemetry.logger.logLevel }}
       log_file: {{ .Values.telemetry.logger.logFile }}
+      log_pretty_format: {{ .Values.telemetry.logger.logPrettyFormat }}
     telemetry:
       listen: {{ .Values.telemetry.listen }}
       graphite:

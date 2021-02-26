@@ -114,6 +114,7 @@ Parameter | Description | Default value
 `microservices.checker.stopCheckingInterval` | Period for every trigger to cancel forced check if no metrics were received | `30s`
 `microservices.checker.maxParallelChecks` | Max parallel checks number for local triggers | `0`
 `microservices.checker.maxParallelRemoteChecks` | Max parallel checks number for remote triggers  | `0`
+`microservices.checker.setLogLevel` | Adjusting minimal log level with concrete fields | `{}`
 
 ### Moira Notifier
 Parameter | Description | Default value
@@ -132,6 +133,7 @@ Parameter | Description | Default value
 `microservices.notifier.moiraSelfState.lastRemoteCheckDelay` | Max Checker checks perform delay for remote triggers | `300s`
 `microservices.notifier.moiraSelfState.noticeInterval` | Self state monitor alerting interval | `300s`
 `microservices.notifier.moiraSelfState.contacts` | Moira administrator contacts | `{}`
+`microservices.notifier.setLogLevel` | Adjusting minimal log level with concrete fields | `{}`
 
 ### Moira API
 Parameter | Description | Default value
@@ -189,6 +191,7 @@ Parameter | Description | Default value
 --------- | ----------- | -------------
 `telemetry.logger.logLevel` | Log level | `info`
 `telemetry.logger.logFile` | Log file path | `stdout`
+`telemetry.logger.logPrettyFormat` | Enable human-readable console output | `false`
 
 ### Profiling server
 Parameter | Description | Default value
