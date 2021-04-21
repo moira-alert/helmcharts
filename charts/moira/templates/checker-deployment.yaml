@@ -36,6 +36,10 @@ spec:
       containers:
         - name: {{ .Values.topology.checker.name }}
           image: {{ .Values.topology.checker.image }}
+{{- if not (empty .Values.topology.checker.livenessProbe) }}
+          livenessProbe:
+{{ .Values.topology.checker.livenessProbe | indent 12 }}
+{{- end }}
           volumeMounts:
             - mountPath: /etc/moira
               name: {{ .Values.topology.checker.name }}-volume
