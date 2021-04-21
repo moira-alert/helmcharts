@@ -58,6 +58,8 @@ Parameter | Description | Default value
 `topology.filter.name` | Moira Filter container name | `moira-filter`
 `topology.filter.image` | Moira Filter container image | `moira/filter:2.6.0.0`
 `topology.filter.replicas` | Moira Filter container replicas number | `1`
+`topology.filter.readinessProbe` | Moira Filter readiness probe | `{}`
+`topology.filter.livenessProbe` | Moira Filter liveness probe | `{}`
 
 ### Moira Checker
 Parameter | Description | Default value
@@ -65,6 +67,8 @@ Parameter | Description | Default value
 `topology.checker.name` | Moira Checker container name | `moira-checker`
 `topology.checker.image` | Moira Checker container image | `moira/checker:2.6.0.0`
 `topology.checker.replicas` | Moira Checker container replicas number | `1`
+`topology.checker.readinessProbe` | Moira Checker readiness probe | `{}`
+`topology.checker.livenessProbe` | Moira Checker liveness probe | `{}`
 
 ### Moira Notifier
 Parameter | Description | Default value
@@ -72,6 +76,8 @@ Parameter | Description | Default value
 `topology.notifier.name` | Moira Notifier container name | `moira-notifier`
 `topology.notifier.image` | Moira Notifier container image | `moira/notifier:2.6.0.0`
 `topology.notifier.replicas` | Moira Notifier container replicas number | `1`
+`topology.notifier.readinessProbe` | Moira Notifier readiness probe | `{}`
+`topology.notifier.livenessProbe` | Moira Notifier liveness probe | `{}`
 
 ### Moira API
 Parameter | Description | Default value
@@ -79,6 +85,8 @@ Parameter | Description | Default value
 `topology.api.name` | Moira API container name | `moira-api`
 `topology.api.image` | Moira API container image | `moira/api:2.6.0.0`
 `topology.api.replicas` | Moira API container replicas number | `1`
+`topology.api.readinessProbe` | Moira API readiness probe | `{}`
+`topology.api.livenessProbe` | Moira API liveness probe | `{}`
 
 ### Moira Web
 Parameter | Description | Default value
@@ -86,6 +94,8 @@ Parameter | Description | Default value
 `topology.web.name` | Moira Web container name | `moira-web`
 `topology.web.image` | Moira Web container image | `moira/web2:2.6.0.0`
 `topology.web.replicas` | Moira Web container replicas number | `1`
+`topology.web.readinessProbe` | Moira Web readiness probe | `{}`
+`topology.web.livenessProbe` | Moira Web liveness probe | `{}`
 
 ## Ingress configuration parameters
 
