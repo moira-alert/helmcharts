@@ -40,6 +40,10 @@ spec:
           livenessProbe:
 {{ .Values.topology.checker.livenessProbe | indent 12 }}
 {{- end }}
+{{- if not (empty .Values.topology.checker.readinessProbe) }}
+          readinessProbe: 
+{{ .Values.topology.checker.readinessProbe | indent 12 }}
+{{- end }}
           volumeMounts:
             - mountPath: /etc/moira
               name: {{ .Values.topology.checker.name }}-volume

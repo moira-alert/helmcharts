@@ -41,18 +41,14 @@ spec:
           ports:
             - name: graphite
               containerPort: 2003
-          livenessProbe:
-            tcpSocket:
-              port: graphite
-            initialDelaySeconds: 30
-            periodSeconds: 60
-            timeoutSeconds: 30
-          readinessProbe:
-            tcpSocket:
-              port: graphite
-            initialDelaySeconds: 30
-            periodSeconds: 60
-            timeoutSeconds: 30
+{{- if not (empty .Values.topology.filter.livenessProbe) }}
+          livenessProbe: 
+{{ .Values.topology.filter.livenessProbe | indent 12 }}
+{{- end }}
+{{- if not (empty .Values.topology.filter.readinessProbe) }}
+          readinessProbe: 
+{{ .Values.topology.filter.readinessProbe | indent 12 }}
+{{- end }}
           volumeMounts:
             - mountPath: /etc/moira
               name: {{ .Values.topology.filter.name }}-volume

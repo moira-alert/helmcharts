@@ -40,6 +40,10 @@ spec:
           livenessProbe: 
 {{ .Values.topology.notifier.livenessProbe | indent 12 }}
 {{- end }}
+{{- if not (empty .Values.topology.notifier.readinessProbe) }}
+          readinessProbe: 
+{{ .Values.topology.notifier.readinessProbe | indent 12 }}
+{{- end }}
           volumeMounts:
             - mountPath: /etc/moira
               name: {{ .Values.topology.notifier.name }}-volume
