@@ -36,21 +36,17 @@ spec:
       containers:
         - name: {{ .Values.topology.api.name }}
           image: {{ .Values.topology.api.image }}
+{{- if not (empty .Values.topology.api.livenessProbe) }}
+          livenessProbe: 
+{{ .Values.topology.api.livenessProbe | indent 12 }}
+{{- end }}
+{{- if not (empty .Values.topology.api.readinessProbe) }}
+          readinessProbe: 
+{{ .Values.topology.api.readinessProbe | indent 12 }}
+{{- end }}
           ports:
             - name: http
               containerPort: 8081
-          livenessProbe:
-            httpGet:
-              path: /api/health/notifier
-              port: http
-            initialDelaySeconds: 600
-            timeoutSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /api/health/notifier
-              port: http
-            initialDelaySeconds: 10
-            timeoutSeconds: 10
           volumeMounts:
             - mountPath: /etc/moira
               name: {{ .Values.topology.api.name }}-volume

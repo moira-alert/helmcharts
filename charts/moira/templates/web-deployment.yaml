@@ -21,5 +21,13 @@ spec:
       containers:
         - name: {{ .Values.topology.web.name }}
           image: {{ .Values.topology.web.image }}
+{{- if not (empty .Values.topology.web.livenessProbe) }}
+          livenessProbe: 
+{{ .Values.topology.web.livenessProbe | indent 12 }}
+{{- end }}
+{{- if not (empty .Values.topology.web.readinessProbe) }}
+          readinessProbe: 
+{{ .Values.topology.web.readinessProbe | indent 12 }}
+{{- end }}
           resources:
 {{ toYaml .Values.topology.web.resources | indent 12 }}

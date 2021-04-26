@@ -8,26 +8,56 @@ topology:
   filter:
     name: "moira-filter"
     image: "moira/filter:2.6.0.0"
+    livenessProbe: |-
+        tcpSocket:
+          port: graphite
+        initialDelaySeconds: 30
+        periodSeconds: 60
+        timeoutSeconds: 30
+    readinessProbe: |-
+        tcpSocket:
+          port: graphite
+        initialDelaySeconds: 30
+        periodSeconds: 60
+        timeoutSeconds: 30
     replicas: 1
     resources: {}
   checker:
     name: "moira-checker"
     image: "moira/checker:2.6.0.0"
     replicas: 1
+    livenessProbe: {}
+    readinessProbe: {}
     resources: {}
   notifier:
     name: "moira-notifier"
     image: "moira/notifier:2.6.0.0"
+    livenessProbe: {}
+    readinessProbe: {}
     replicas: 1
     resources: {}
   api:
     name: "moira-api"
     image: "moira/api:2.6.0.0"
+    livenessProbe: |-
+        httpGet:
+          path: /api/health/notifier
+          port: http
+        initialDelaySeconds: 600
+        timeoutSeconds: 10
+    readinessProbe: |-
+        httpGet:
+          path: /api/health/notifier
+          port: http
+        initialDelaySeconds: 10
+        timeoutSeconds: 10
     replicas: 1
     resources: {}
   web:
     name: "moira-web"
     image: "moira/web2:2.6.0.0"
+    livenessProbe: {}
+    readinessProbe: {}
     replicas: 1
     resources: {}
 
