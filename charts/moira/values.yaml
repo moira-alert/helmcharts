@@ -1,13 +1,15 @@
 # [common] Ingress configuration parameters
 ingress:
+  annotations: {}
+  ingressClass: ""
   enabled: true
-  host: "moira"
+  host: "moira.example.com"
 
 # Moira topology parameters
 topology:
   filter:
     name: "moira-filter"
-    image: "moira/filter:2.6.0.0"
+    image: "moira/filter:2.15.0"
     livenessProbe: |-
         tcpSocket:
           port: graphite
@@ -23,22 +25,22 @@ topology:
     replicas: 1
     resources: {}
   checker:
-    name: "moira-checker"
-    image: "moira/checker:2.6.0.0"
+    name: "checker"
+    image: "moira/checker:2.15.0"
     replicas: 1
     livenessProbe: {}
     readinessProbe: {}
     resources: {}
   notifier:
-    name: "moira-notifier"
-    image: "moira/notifier:2.6.0.0"
+    name: "notifier"
+    image: "/moira/notifier:2.15.0"
     livenessProbe: {}
     readinessProbe: {}
     replicas: 1
     resources: {}
   api:
-    name: "moira-api"
-    image: "moira/api:2.6.0.0"
+    name: "api"
+    image: "moira/api:2.15.0"
     livenessProbe: |-
         httpGet:
           path: /api/health/notifier
@@ -66,6 +68,7 @@ topology:
 
 # Microservices configuration
 microservices:
+  #  See more details at https://moira.readthedocs.io/en/latest/installation/configuration.html#filter
   filter:
     # Metrics listener uri
     listen: ":2003"
@@ -104,15 +107,15 @@ microservices:
     maxParallelRemoteChecks: 0
   notifier:
     # Soft timeout to start retrying to send notification after single failed attempt
-    senderTimeout: "10s"
+    sender_timeout: "10s"
     # Hard timeout to stop retrying to send notification after multiple failed attempts
-    resendingTimeout: "1:00"
+    resending_timeout: "1:00"
     # Web-UI uri prefix for trigger links in notifications. For example: with 'http://localhost' every notification will contain link like 'http://localhost/trigger/triggerId'
-    frontURI: "http://localhost"
+    front_uri: "https://moira.example.com"
     # Timezone to use to convert ticks. Default is UTC. See https://golang.org/pkg/time/#LoadLocation for more details
     timezone: "UTC"
     # Format for email sender. Default is "15:04 02.01.2006". See https://golang.org/pkg/time/#Time.Format for more details about golang time formatting
-    datetimeFormat: "15:04 02.01.2006"
+    date_time_format: "15:04 02.01.2006"
     # Enabled senders, every element has "type" field (one of ["pushover", "slack", "mail", "telegram", "twilio sms", "twilio voice", "script", "webhook"])
     # Every type of sender has additional config fields
     # slack
@@ -155,7 +158,19 @@ microservices:
     # API local network address. Default is ':8081' so api will be available at http://moira.company.com:8081/api
     listen: ":8081"
     # If true, CORS for cross-domain requests will be enabled. This option can be used only for debugging purposes.
-    enableCORS: false
+    enable_cors: false
+    authorization:
+      enabled: false
+      admin_list: [ ]
+      limited_change_trigger_owners: [ ]
+    limits:
+      pager:
+        ttl: 30m0s
+      trigger:
+        max_name_size: 200
+      team:
+        max_name_size: 100
+        max_description_size: 1000
   web:
     # Contact types that are allowed to create by using Web UI
     # slack:
@@ -172,50 +187,15 @@ microservices:
     #   type: webhook
     #   name: webhook to trusted
     #   validation: "^(http|https):\\/\\/.*(allowedDomainsRegex..."
-    contacts: {}
+
     # Moira administrator email address
     supportEmail: ""
-
 # Datasources configuration
 datasources:
-  # Redis datasource configuration
-  # Use fields MasterName and SentinelAddrs to enable Redis Sentinel support,
-  # use Host and Port fields otherwise.
-  redis:
-    # Sentinel master name
-    masterName: ""
-    # Sentinel address list, format: {host1_name:port};{ip:port}
-    sentinelAddrs: ""
-    # Node ip-address or host name
-    host: ""
-    # Node port
-    port: ""
-    # Database id
-    db: 0
-    # Redis client connection pool size
-    connectionLimit: 512
-    # Allow reading data from slave replicas
-    allowSlaveReads: true
-    # Delete metrics older than this value from Redis
-    metricsTTL: "3h"
-  # Remote datasource configuration
-  remote:
-    # If true, remote datasource will be enabled
-    enabled: false
-    # URL of Graphite HTTP API: graphite-web, carbonapi, etc.
-    # Specify full URL including '/render'
-    url: "https://localhost/carbonapi/render"
-    # Auth username (Basic-auth)
-    user: ""
-    # Auth password (Basic-auth)
-    password: ""
-    # Min period to perform triggers re-check
-    # Note: Reducing of this value leads to increasing of CPU and memory usage values and extra load on Graphite HTTP API
-    checkInterval: "60s"
-    # Don't fetch metrics older than this value from remote storage
-    metricsTTL: "168h"
-    # Max timeout for HTTP-request made to Graphite HTTP API
-    timeout: "60s"
+  # https://moira.readthedocs.io/en/latest/installation/configuration.html
+  redis: {}
+  prometheus_remote: []
+  graphite_remote: []
 
 # Telemetry configuration parameters
 telemetry:
@@ -227,7 +207,7 @@ telemetry:
     enabled: false
     # If true, runtime stats will be captured and sent to graphite. Note: It takes to call stoptheworld() with configured
     # "graphite.interval" to capture runtime stats (https://golang.org/src/runtime/mstats.go)
-    runtimeStats: false
+    runtime_stats: false
     # Graphite relay URI, format: ip:port
     uri: "localhost:2003"
     # Metrics prefix. Use 'prefix: {hostname}' to use hostname autoresolver.
@@ -235,15 +215,20 @@ telemetry:
     # Metrics sending interval
     interval: "60s"
   # Log sender
-  logger:
-    # Log level. Must be one of "debug", "error", "warn" or "info"
-    logLevel: "info"
-    # Log file path
-    logFile: "stdout"
   # Profiling server
   pprof:
     # If true, profiling server will be enabled
     enabled: false
+
+logger:
+  # Log level. Must be one of "debug", "error", "warn" or "info"
+  logLevel: "info"
+  # Log file path
+  logFile: "stdout"
+  log_pretty_format: false
+
+notification_history:
+  ttl: 48h
 
 prometheus:
   enabled: false

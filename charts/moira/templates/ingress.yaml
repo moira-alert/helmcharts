@@ -1,21 +1,38 @@
 {{- if .Values.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  {{- if .Values.ingress.annotations }}
+  {{- with .Values.ingress.annotations }}
+  annotations: {{ toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
   name: {{ .Release.Name }}-ingress
   labels:
     helm.sh/chart: {{ include "moira.chart" . }}
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClass }}
   rules:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: {{ .Values.topology.web.name }}
-              servicePort: 80
+              service:
+                name: {{ .Values.topology.web.name }}
+                port:
+                  number: 80
           - path: /api
+            pathType: Prefix
             backend:
-              serviceName: {{ .Values.topology.api.name }}
-              servicePort: 8081
+              service:
+                name: {{ .Values.topology.api.name }}
+                port:
+                  number: 8081
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Release.Name }}-ingress
 {{- end -}}
