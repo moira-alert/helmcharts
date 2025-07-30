@@ -1,6 +1,7 @@
+---
 apiVersion: v1
 name: moira
-version: 2.6.0
+version: 2.15.0
 description: Moira is a real-time alerting tool, based on Graphite data.
 home: https://moira.readthedocs.io
 icon: https://avatars1.githubusercontent.com/u/15890491

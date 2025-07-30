@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,61 +9,49 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 data:
   notifier.yml: |
+    {{- if .Values.datasources.redis}}
+    redis:
+      {{- toYaml .Values.datasources.redis | nindent 6 }}
+    {{- end }}
+    {{- if .Values.log }}
+    log:
+      {{- toYaml .Values.logger | nindent 6 }}
+    {{- end }}
+    {{- if .Values.microservices.notifier }}
     notifier:
-      front_uri: {{ .Values.microservices.notifier.frontURI }}
-      datetime_format: {{ .Values.microservices.notifier.datetimeFormat }}
-      timezone: {{ .Values.microservices.notifier.timezone }}
-      sender_timeout: {{ .Values.microservices.notifier.senderTimeout }}
-      resending_timeout: {{ .Values.microservices.notifier.resendingTimeout }}
+      {{- omit .Values.microservices.notifier "senders" "moira_selfstate"| toYaml | nindent 6 }}
+      {{- if .Values.microservices.notifier.senders }}
       senders:
       {{- range $key, $value := .Values.microservices.notifier.senders }}
         - sender: {{ $key }}
           {{- range $elem, $elemVal := $value }}
-          {{ $elem }}: {{ $elemVal | quote }}
+          {{ $elem }}: {{ $elemVal }}
           {{- end }}
       {{- end }}
+      {{- end }}
+      {{- if .Values.microservices.notifier.moiraSelfState }}
       moira_selfstate:
-        enabled: {{ .Values.microservices.notifier.moiraSelfState.enabled }}
-        remoteTriggersEnabled: {{ .Values.microservices.notifier.moiraSelfState.remoteTriggersEnabled }}
-        redis_disconect_delay: {{ .Values.microservices.notifier.moiraSelfState.redisDisconnectDelay }}
-        last_metric_received_delay: {{ .Values.microservices.notifier.moiraSelfState.lastMetricReceivedDelay }}
-        last_check_delay: {{ .Values.microservices.notifier.moiraSelfState.lastCheckDelay }}
-        last_remote_check_delay: {{ .Values.microservices.notifier.moiraSelfState.lastRemoteCheckDelay }}
-        notice_interval: {{ .Values.microservices.notifier.moiraSelfState.noticeInterval }}
+        {{- omit .Values.microservices.notifier.moiraSelfState "contacts" | toYaml | nindent 6 }}
+        {{- if .Values.microservices.notifier.moiraSelfState.contacts }}
         contacts:
         {{- range $key, $value := .Values.microservices.notifier.moiraSelfState.contacts }}
           - contact: {{ $key }}
             {{- range $elem, $elemVal := $value }}
-            {{ $elem }}: {{ $elemVal | quote }}
+            {{ $elem }}: {{ $elemVal }}
             {{- end }}
         {{- end }}
-    redis:
-      master_name: {{ .Values.datasources.redis.masterName }}
-      sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
-      host: {{ .Values.datasources.redis.host }}
-      port: {{ .Values.datasources.redis.port }}
-      dbid: {{ .Values.datasources.redis.db }}
-      connection_limit: {{ .Values.datasources.redis.connectionLimit }}
-      allow_slave_reads: {{ .Values.datasources.redis.allowSlaveReads }}
-      metrics_ttl: {{ .Values.datasources.redis.metricsTTL }}
-    remote:
-      enabled: {{ .Values.datasources.remote.enabled }}
-      url: {{ .Values.datasources.remote.url }}
-      timeout: {{ .Values.datasources.remote.timeout }}
-      check_interval: {{ .Values.datasources.remote.checkInterval }}
-      metrics_ttl: {{ .Values.datasources.remote.metricsTTL }}
-      user: {{ .Values.datasources.remote.user }}
-      password: {{ .Values.datasources.remote.password }}
-    logger:
-      log_level: {{ .Values.telemetry.logger.logLevel }}
-      log_file: {{ .Values.telemetry.logger.logFile }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .Values.telemetry }}
     telemetry:
-      listen: {{ .Values.telemetry.listen }}
-      graphite:
-        enabled: {{ .Values.telemetry.graphite.enabled }}
-        uri: {{ .Values.telemetry.graphite.uri }}
-        interval: {{ .Values.telemetry.graphite.interval }}
-        prefix: {{ .Values.telemetry.graphite.prefix }}
-        runtime_stats: {{ .Values.telemetry.graphite.runtimeStats }}
-      pprof: 
-        enabled: {{ .Values.telemetry.pprof.enabled }}
+      {{- toYaml .Values.telemetry | nindent 6 }}
+    {{- end }}
+    {{- if .Values.datasources.graphite_remote}}
+    graphite_remote:
+      {{- toYaml .Values.datasources.graphite_remote | nindent 6 }}
+    {{- end }}
+    {{- if .Values.datasources.prometheus_remote}}
+    prometheus_remote:
+      {{- toYaml .Values.datasources.prometheus_remote | nindent 6 }}
+    {{- end }}    

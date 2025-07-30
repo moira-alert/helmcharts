@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,33 +9,22 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 data:
   filter.yml: |
-    filter:
-      listen: {{ .Values.microservices.filter.listen }}
-      cache_capacity: {{ .Values.microservices.filter.cacheCapacity }}
-      max_parallel_matches: {{ .Values.microservices.filter.maxParallelMatches }}
-      patterns_update_period: {{ .Values.microservices.filter.patternsUpdatePeriod }}
+    {{- if .Values.datasources.redis}}
     redis:
-      master_name: {{ .Values.datasources.redis.masterName }}
-      sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
-      host: {{ .Values.datasources.redis.host }}
-      port: {{ .Values.datasources.redis.port }}
-      dbid: {{ .Values.datasources.redis.db }}
-      connection_limit: {{ .Values.datasources.redis.connectionLimit }}
-      allow_slave_reads: {{ .Values.datasources.redis.allowSlaveReads }}
-      metrics_ttl: {{ .Values.datasources.redis.metricsTTL }}
-    logger:
-      log_level: {{ .Values.telemetry.logger.logLevel }}
-      log_file: {{ .Values.telemetry.logger.logFile }}
+      {{- toYaml .Values.datasources.redis | nindent 6 }}
+    {{- end }}
+    {{- if .Values.log }}
+    log:
+      {{- toYaml .Values.logger | nindent 6 }}
+    {{- end }}
+    {{- if .Values.microservices.filter }}
+    filter:
+      {{- omit .Values.microservices.filter "retentionConfig" | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .Values.telemetry }}
     telemetry:
-      listen: {{ .Values.telemetry.listen }}
-      graphite:
-        enabled: {{ .Values.telemetry.graphite.enabled }}
-        uri: {{ .Values.telemetry.graphite.uri }}
-        interval: {{ .Values.telemetry.graphite.interval }}
-        prefix: {{ .Values.telemetry.graphite.prefix }}
-        runtime_stats: {{ .Values.telemetry.graphite.runtimeStats }}
-      pprof: 
-        enabled: {{ .Values.telemetry.pprof.enabled }}
-        
+      {{- toYaml .Values.telemetry | nindent 6 }}
+    {{- end }}
+
   storage-schemas.conf: |
 {{ .Values.microservices.filter.retentionConfig | indent 4 }}

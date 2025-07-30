@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,11 +9,22 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 data:
   api.yml: |
+    {{- if .Values.datasources.redis}}
+    redis:
+      {{- toYaml .Values.datasources.redis | nindent 6 }}
+    {{- end }}
+    {{- if .Values.log }}
+    log:
+      {{- toYaml .Values.logger | nindent 6 }}
+    {{- end }}
+    {{- if .Values.microservices.api }}
     api:
-      listen: {{ .Values.microservices.api.listen }}
-      enable_cors: {{ .Values.microservices.api.enableCORS }}
+      {{- toYaml .Values.microservices.api | nindent 6 }}
+    {{- end }}
+    {{- if .Values.microservices.web }}
     web:
-      support_email: {{ .Values.microservices.web.supportEmail }}
+      {{- omit  .Values.microservices.web "contacts_template" "contacts" | toYaml | nindent 6 }}
+      {{- if .Values.microservices.web.contacts }}
       contacts:
       {{- range $key, $value := .Values.microservices.web.contacts }}
         - contact: {{ $key }}
@@ -20,33 +32,26 @@ data:
           {{ $elem }}: {{ $elemVal }}
           {{- end }}
       {{- end }}
-    redis:
-      master_name: {{ .Values.datasources.redis.masterName }}
-      sentinel_addrs: {{ .Values.datasources.redis.sentinelAddrs }}
-      host: {{ .Values.datasources.redis.host }}
-      port: {{ .Values.datasources.redis.port }}
-      dbid: {{ .Values.datasources.redis.db }}
-      connection_limit: {{ .Values.datasources.redis.connectionLimit }}
-      allow_slave_reads: {{ .Values.datasources.redis.allowSlaveReads }}
-      metrics_ttl: {{ .Values.datasources.redis.metricsTTL }}
-    remote:
-      enabled: {{ .Values.datasources.remote.enabled }}
-      url: {{ .Values.datasources.remote.url }}
-      timeout: {{ .Values.datasources.remote.timeout }}
-      check_interval: {{ .Values.datasources.remote.checkInterval }}
-      metrics_ttl: {{ .Values.datasources.remote.metricsTTL }}
-      user: {{ .Values.datasources.remote.user }}
-      password: {{ .Values.datasources.remote.password }}
-    logger:
-      log_level: {{ .Values.telemetry.logger.logLevel }}
-      log_file: {{ .Values.telemetry.logger.logFile }}
+      {{- end }}
+      {{- if .Values.microservices.web.contacts }}
+      contacts_template:
+      {{- range $key, $value := .Values.microservices.web.contacts_template }}
+        - contact: {{ $key }}
+      {{- range $elem, $elemVal := $value }}
+          {{ $elem }}: {{ $elemVal | quote }}
+          {{- end }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .Values.telemetry }}
     telemetry:
-      listen: {{ .Values.telemetry.listen }}
-      graphite:
-        enabled: {{ .Values.telemetry.graphite.enabled }}
-        uri: {{ .Values.telemetry.graphite.uri }}
-        interval: {{ .Values.telemetry.graphite.interval }}
-        prefix: {{ .Values.telemetry.graphite.prefix }}
-        runtime_stats: {{ .Values.telemetry.graphite.runtimeStats }}
-      pprof: 
-        enabled: {{ .Values.telemetry.pprof.enabled }}
+      {{- toYaml .Values.telemetry | nindent 6 }}
+    {{- end }}
+    {{- if .Values.datasources.graphite_remote}}
+    graphite_remote:
+      {{- toYaml .Values.datasources.graphite_remote | nindent 6 }}
+    {{- end }}
+    {{- if .Values.datasources.prometheus_remote}}
+    prometheus_remote:
+      {{- toYaml .Values.datasources.prometheus_remote | nindent 6 }}
+    {{- end }}
